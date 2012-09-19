@@ -1,4 +1,4 @@
 1. First setup project to these steps: http://mahler.cse.unsw.edu.au/webcms2/course/index.php?cid=2272
 2. Import this git into your eclipse as existing project
 3. Change your build from Java OSX to your native Java Library
-4. Run index.jsp on your server
+4. Run index.jsp on your TomCat server
