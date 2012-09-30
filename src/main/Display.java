@@ -32,6 +32,23 @@ public class Display extends HttpServlet {
 		}
 		int id = Integer.valueOf(request.getParameter("id"));
 		
+		//Handle messages (from MakeBid)
+		if (request.getParameterMap().containsKey("err")) {
+			switch (Integer.valueOf(request.getParameter("err"))) {
+				case 0:
+					request.setAttribute("error", "You didn't supply a bid.");
+					break;
+				case 1:
+					request.setAttribute("error", "That bid was below the minimum bid.");
+					break;
+				case 2:
+					request.setAttribute("error", "That bid was below your previous bid.");
+					break;
+			}
+		} else if (request.getParameterMap().containsKey("bid")) {
+			request.setAttribute("successfulBid", request.getParameter("bid"));
+		}
+		
 		try {
 			//get item from database
 			db = new Database();

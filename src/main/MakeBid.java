@@ -16,22 +16,29 @@ public class MakeBid extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		Database db = null;
+		int id;
+		String bidString;
+		int bid;
 
 		//check and get Parameters
 		if (!request.getParameterMap().containsKey("id")) {
-			request.setAttribute("item", null);
-			RequestDispatcher view = request.getRequestDispatcher("displayItem.jsp");
-			view.forward(request, response);
+			response.sendRedirect("display");
 			return;
 		} else if (!request.getParameterMap().containsKey("bid")) {
-			request.setAttribute("error", "You didn't supply a bid.");
-			RequestDispatcher view = request.getRequestDispatcher("displayItem.jsp");
-			view.forward(request, response);
+			response.sendRedirect("display?id="+request.getParameter("id")+"&err=0");
 			return;
 		}
-		int id = Integer.valueOf(request.getParameter("id"));
-		String bidString = request.getParameter("bid").replaceAll("\\.", "");
-		int bid = Integer.valueOf(bidString);
+		id = Integer.valueOf(request.getParameter("id"));
+		bidString = request.getParameter("bid");
+		
+		//get bid amount as either dollars.cents or dollars 
+		if (bidString.contains(".")) {
+			bidString = bidString.replaceAll("\\.", "");
+			bid = Integer.valueOf(bidString);
+		} else {
+			bid = Integer.valueOf(bidString) * 100;
+		}
+
 		 //TODO: fix when auth is setup
 		String user = "Default User";
 		
@@ -43,18 +50,14 @@ public class MakeBid extends HttpServlet {
 			
 			//validate bid
 			if (item == null) {
-				RequestDispatcher view = request.getRequestDispatcher("displayItem.jsp");
-				view.forward(request, response);
+				response.sendRedirect("display");
 				return;		
 			} else if (bid < item.getMinBid()) {
-				request.setAttribute("error", "That bid was below the minimum bid.");
-				RequestDispatcher view = request.getRequestDispatcher("displayItem.jsp");
-				view.forward(request, response);
+				response.sendRedirect("display?id="+id+"&err=1");
 				return;
 			} /* else if (user has bid lower previously) {
-				request.setAttribute("error", "Sorry! That bid was below your previous bid.");
-				RequestDispatcher view = request.getRequestDispatcher("display.jsp");
-				view.forward(request, response);
+				response.sendRedirect("display?id="+id+"&err=2");
+				return;
 			}*/
 
 			
@@ -71,10 +74,8 @@ public class MakeBid extends HttpServlet {
 				db.updateItem(id, item);
 			}
 			//send success message
-			request.setAttribute("successfulBid", 
+			response.sendRedirect("display?id="+id+"&bid=" +
 					             String.format("%d.%02d", (bid/100), (bid%100)));
-			RequestDispatcher view = request.getRequestDispatcher("displayItem.jsp");
-			view.forward(request, response);
 		} catch (Exception e) {
 			System.out.println("Database error: " + e);
 			RequestDispatcher view = request.getRequestDispatcher("dbError.jsp");
