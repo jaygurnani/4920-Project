@@ -1,0 +1,31 @@
+INSERT INTO "user" VALUES(1,"Jay Gurnani", "abc123", null);
+INSERT INTO "user" VALUES(2, "Andrew Lai", "abc123", null);
+INSERT INTO "user" VALUES(3, "Thilucshan Jayamohan", "abc123", null);
+INSERT INTO "user" VALUES(4,"Rowan Leeder", "abc123", null);
+INSERT INTO "user" VALUES(5, "Ben Faull", "abc123", null);
+
+INSERT INTO "user" VALUES(6,"Bob Smith", "abc123", null);
+INSERT INTO "user" VALUES(7, "Alice Jane", "abc123", null);
+INSERT INTO "user" VALUES(8, "Peter Wang", "abc123", null);
+INSERT INTO "user" VALUES(9,"Michelle Clark", "abc123", null);
+INSERT INTO "user" VALUES(10, "John Doe", "abc123", null);
+
+INSERT INTO "locations" VALUES(1, "Adelaide");
+INSERT INTO "locations" VALUES(2, "Canberra");
+INSERT INTO "locations" VALUES(3, "Sydney");
+INSERT INTO "locations" VALUES(4, "Alice Springs");
+INSERT INTO "locations" VALUES(5, "Darwin");
+INSERT INTO "locations" VALUES(6, "Perth");
+INSERT INTO "locations" VALUES(7, "Gold Coast");
+INSERT INTO "locations" VALUES(8, "Hobart");
+INSERT INTO "locations" VALUES(9, "Parramatta");
+INSERT INTO "locations" VALUES(10, "Newcastle");
+INSERT INTO "locations" VALUES(11, "All Australia");
+INSERT INTO "locations" VALUES(12, "New South Wales");
+INSERT INTO "locations" VALUES(13, "Victoria");
+INSERT INTO "locations" VALUES(14, "Queensland");
+INSERT INTO "locations" VALUES(15, "South Australia");
+INSERT INTO "locations" VALUES(16, "Western Australia");
+INSERT INTO "locations" VALUES(17, "North Territories");
+INSERT INTO "locations" VALUES(18, "Melbourne");
+INSERT INTO "locations" VALUES(19, "Dubbo");
