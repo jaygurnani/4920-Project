@@ -12,7 +12,7 @@ public class Database {
 	
 	//Constants
 	private final static int timeout = 30;
-	private final static String dbPath = "/Users/mac/Documents/workspace/4920-Project/WebContent/database/auction";
+	private final static String dbPath = "D:/auction";
 	private final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public Database() throws Exception {
@@ -34,7 +34,25 @@ public class Database {
 		List<Item> items = new ArrayList<Item>();
 		
 		//Query database
-		String query = "SELECT * FROM item WHERE description LIKE ?";
+		String query = "SELECT i.id AS id, " +
+		               "i.description AS description, " +
+		               "sellLoc.name AS startLocation, " +
+		               "shipLoc.name AS shipsTo, " +
+		               "i.category AS category, " +
+		               "i.startDate AS startDate, " +
+		               "i.endDate AS endDate, " +
+		               "seller.name AS owner, " +
+		               "i.firstBid AS firstBid, " +
+		               "bidder1.name AS firstBidUser, " +
+		               "i.secondBid AS secondBid, " +
+		               "bidder2.name AS secondBidUser " +
+					   "FROM item i " + 
+					   "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
+					   "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
+					   "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
+					   "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
+					   "LEFT OUTER JOIN user bidder2 ON (i.secondBidUser = bidder2.id) " +
+					   "WHERE i.description LIKE ?";
 		PreparedStatement statement = connection.prepareStatement(query);
 	  	statement.setString(1, "%"+search+"%");
     	statement.setQueryTimeout(timeout);
@@ -43,17 +61,17 @@ public class Database {
     	//add all results to items
     	while (rs.next()) {
     		items.add(new Item(rs.getInt("id"),
-    						   rs.getString("Description"), 
-    						   rs.getString("startlocation"),
-    						   rs.getString("shipsto"),
-    						   rs.getString("category"),
-    						   df.parse(rs.getString("startDate")),
-    						   df.parse(rs.getString("endDate")),
-    						   rs.getString("owner"),
-    						   rs.getInt("firstBid"),
-    						   rs.getString("firstBidUser"),
-    						   rs.getInt("secondBid"),
-    						   rs.getString("secondBidUser")));
+    					rs.getString("Description"), 
+    					rs.getString("startlocation"),
+    					rs.getString("shipsto"),
+    					rs.getString("category"),
+    					df.parse(rs.getString("startDate")),
+    					df.parse(rs.getString("endDate")),
+    					rs.getString("owner"),
+    					rs.getInt("firstBid"),
+    					rs.getString("firstBidUser"),
+    					rs.getInt("secondBid"),
+    					rs.getString("secondBidUser")));
     	}
     	rs.close();
     	
@@ -65,8 +83,25 @@ public class Database {
 		List<Item> items = new ArrayList<Item>();
 		
 		//Query database
-		String query = "SELECT * FROM item " +
-					   "WHERE Description like ? " +
+		String query = "SELECT i.id AS id, " +
+	               	   "i.description AS description, " +
+	                   "sellLoc.name AS startLocation, " +
+	                   "shipLoc.name AS shipsTo, " +
+	                   "i.category AS category, " +
+	                   "i.startDate AS startDate, " +
+	                   "i.endDate AS endDate, " +
+	                   "seller.name AS owner, " +
+	                   "i.firstBid AS firstBid, " +
+	                   "bidder1.name AS firstBidUser, " +
+	                   "i.secondBid AS secondBid, " +
+	                   "bidder2.name AS secondBidUser " +
+		    		   "FROM item i " + 
+				       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
+				       "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
+				       "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
+				       "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
+				       "LEFT OUTER JOIN user bidder2 ON (i.secondBidUser = bidder2.id) " +
+					   "WHERE i.description like ? " +
 					   "ORDER BY " + sortBy;
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setString(1, "%"+search+"%");
@@ -96,7 +131,25 @@ public class Database {
 	public Item getItemById(int id) throws Exception {
 		
 		//Query database for item
-		String query = "SELECT * FROM item WHERE id = ?";
+		String query = "SELECT i.id AS id, " +
+            	       "i.description AS description, " +
+                       "sellLoc.name AS startLocation, " +
+                       "shipLoc.name AS shipsTo, " +
+                       "i.category AS category, " +
+                       "i.startDate AS startDate, " +
+                       "i.endDate AS endDate, " +
+                       "seller.name AS owner, " +
+                       "i.firstBid AS firstBid, " +
+                       "bidder1.name AS firstBidUser, " +
+                       "i.secondBid AS secondBid, " +
+                       "bidder2.name AS secondBidUser " +
+	    		       "FROM item i " + 
+	    		       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
+		    	       "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
+			           "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
+			           "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
+			           "LEFT OUTER JOIN user bidder2 ON (i.secondBidUser = bidder2.id) " +
+				       "WHERE i.id = ?";
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setInt(1, id);
 		statement.setQueryTimeout(timeout);
@@ -124,7 +177,25 @@ public class Database {
 		List<Item> items = new ArrayList<Item>();
 		
 		//Query database
-		String query = "SELECT * FROM item WHERE category = ?";
+		String query = "SELECT i.id AS id, " +
+     	               "i.description AS description, " +
+                       "sellLoc.name AS startLocation, " +
+                       "shipLoc.name AS shipsTo, " +
+                       "i.category AS category, " +
+                       "i.startDate AS startDate, " +
+                       "i.endDate AS endDate, " +
+                       "seller.name AS owner, " +
+                       "i.firstBid AS firstBid, " +
+                       "bidder1.name AS firstBidUser, " +
+                       "i.secondBid AS secondBid, " +
+                       "bidder2.name AS secondBidUser " +
+ 	        	       "FROM item i " + 
+ 	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
+	    	           "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
+		               "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
+		               "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
+		               "LEFT OUTER JOIN user bidder2 ON (i.secondBidUser = bidder2.id) " +
+			           "WHERE i.category = ?";
 		PreparedStatement statement = connection.prepareStatement(query);
 	  	statement.setString(1, category);
     	statement.setQueryTimeout(timeout);
