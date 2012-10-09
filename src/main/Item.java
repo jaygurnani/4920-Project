@@ -31,9 +31,9 @@ public class Item implements Serializable {
 	//set up object with specified values
 	public Item(int id, String Description, String startLocation, 
 			    String shipsTo, String category, Date startDate,
-			    Date endDate, String owner, int firstBid,
-			    String firstBidUser, int secondBid, 
-			    String secondBidUser) {
+			    Date endDate, String owner, int minBid, 
+			    int firstBid, String firstBidUser, 
+			    int secondBid,String secondBidUser) {
 		this.id = id;
 		this.Description = Description;
 		this.startLocation = startLocation;
@@ -42,7 +42,7 @@ public class Item implements Serializable {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.owner = owner;
-		this.minBid = 100;
+		this.minBid = minBid;
 		this.firstBid = firstBid;
 		this.firstBidUser = firstBidUser;
 		this.secondBid = secondBid;

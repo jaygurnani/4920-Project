@@ -12,7 +12,7 @@ public class Database {
 	
 	//Constants
 	private final static int timeout = 30;
-	private final static String dbPath = "/Users/mac/Documents/workspace/4920-Project/WebContent/database/newAuction";
+	private final static String dbPath = "D:/auction";
 	private final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public Database() throws Exception {
@@ -42,6 +42,7 @@ public class Database {
 		               "i.startDate AS startDate, " +
 		               "i.endDate AS endDate, " +
 		               "seller.name AS owner, " +
+		               "i.minBid AS minBid, " +
 		               "i.firstBid AS firstBid, " +
 		               "bidder1.name AS firstBidUser, " +
 		               "i.secondBid AS secondBid, " +
@@ -68,6 +69,7 @@ public class Database {
     					df.parse(rs.getString("startDate")),
     					df.parse(rs.getString("endDate")),
     					rs.getString("owner"),
+    					rs.getInt("minBid"),
     					rs.getInt("firstBid"),
     					rs.getString("firstBidUser"),
     					rs.getInt("secondBid"),
@@ -91,6 +93,7 @@ public class Database {
 	                   "i.startDate AS startDate, " +
 	                   "i.endDate AS endDate, " +
 	                   "seller.name AS owner, " +
+		               "i.minBid AS minBid, " +
 	                   "i.firstBid AS firstBid, " +
 	                   "bidder1.name AS firstBidUser, " +
 	                   "i.secondBid AS secondBid, " +
@@ -118,6 +121,7 @@ public class Database {
 					   df.parse(rs.getString("startDate")),
 					   df.parse(rs.getString("endDate")),
 					   rs.getString("owner"),
+					   rs.getInt("minBid"),
 					   rs.getInt("firstBid"),
 					   rs.getString("firstBidUser"),
 					   rs.getInt("secondBid"),
@@ -139,6 +143,7 @@ public class Database {
                        "i.startDate AS startDate, " +
                        "i.endDate AS endDate, " +
                        "seller.name AS owner, " +
+		               "i.minBid AS minBid, " +
                        "i.firstBid AS firstBid, " +
                        "bidder1.name AS firstBidUser, " +
                        "i.secondBid AS secondBid, " +
@@ -164,6 +169,7 @@ public class Database {
 						     df.parse(rs.getString("startDate")),
 						     df.parse(rs.getString("endDate")),
 						     rs.getString("owner"),
+						     rs.getInt("minBid"),
 						     rs.getInt("firstBid"),
 						     rs.getString("firstBidUser"),
 						     rs.getInt("secondBid"),
@@ -185,6 +191,7 @@ public class Database {
                        "i.startDate AS startDate, " +
                        "i.endDate AS endDate, " +
                        "seller.name AS owner, " +
+		               "i.minBid AS minBid, " +
                        "i.firstBid AS firstBid, " +
                        "bidder1.name AS firstBidUser, " +
                        "i.secondBid AS secondBid, " +
@@ -211,6 +218,7 @@ public class Database {
     						   df.parse(rs.getString("startDate")),
     						   df.parse(rs.getString("endDate")),
     						   rs.getString("owner"),
+    						   rs.getInt("minBid"),
     						   rs.getInt("firstBid"),
     						   rs.getString("firstBidUser"),
     						   rs.getInt("secondBid"),
