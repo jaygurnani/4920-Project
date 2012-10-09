@@ -39,8 +39,9 @@ public class MakeBid extends HttpServlet {
 			bid = Integer.valueOf(bidString) * 100;
 		}
 
-		 //TODO: fix when auth is setup
-		String user = "Default User";
+		//TODO: fix when auth is setup
+		//default user is John Doe
+		int userId = 10;
 		
 		try {
 			//get item from database
@@ -55,23 +56,13 @@ public class MakeBid extends HttpServlet {
 			} else if (bid < item.getMinBid()) {
 				response.sendRedirect("display?id="+id+"&err=1");
 				return;
-			} /* else if (user has bid lower previously) {
-				response.sendRedirect("display?id="+id+"&err=2");
-				return;
-			}*/
-
+			}
 			
 			//bid is valid, execute it
 			if (bid > item.getFirstBid()) {
-				item.setSecondBid(item.getFirstBid());
-				item.setSecondBidUser(item.getFirstBidUser());
-				item.setFirstBid(bid);
-				item.setFirstBidUser(user);
-				db.updateItem(id, item);
+				db.updateItemBids(id, bid, userId, item.getFirstBid(), item.getFirstBidUserId());
 			} else if (bid > item.getSecondBid()) {
-				item.setSecondBid(bid);
-				item.setSecondBidUser(user);
-				db.updateItem(id, item);
+				db.updateItemBids(id, item.getFirstBid(), item.getFirstBidUserId(), bid, userId);
 			}
 			//send success message
 			response.sendRedirect("display?id="+id+"&bid=" +

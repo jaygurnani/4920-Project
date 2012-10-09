@@ -20,9 +20,11 @@ public class Item implements Serializable {
 	private String owner;
 	private int minBid;
 	private int firstBid;
-	private String firstBidUser;
+	private int firstBidUserId;
+	private String firstBidUserName;
+	private int secondBidUserId;
 	private int secondBid;
-	private String secondBidUser;
+	private String secondBidUserName;
 	
 	//set up object with empty values
 	public Item() {
@@ -32,8 +34,8 @@ public class Item implements Serializable {
 	public Item(int id, String Description, String startLocation, 
 			    String shipsTo, String category, Date startDate,
 			    Date endDate, String owner, int minBid, 
-			    int firstBid, String firstBidUser, 
-			    int secondBid,String secondBidUser) {
+			    int firstBid, int firstBidUserId, String firstBidUserName, 
+			    int secondBid,int secondBidUserId, String secondBidUserName) {
 		this.id = id;
 		this.Description = Description;
 		this.startLocation = startLocation;
@@ -44,9 +46,11 @@ public class Item implements Serializable {
 		this.owner = owner;
 		this.minBid = minBid;
 		this.firstBid = firstBid;
-		this.firstBidUser = firstBidUser;
+		this.firstBidUserId = firstBidUserId;
+		this.firstBidUserName = firstBidUserName;
 		this.secondBid = secondBid;
-		this.secondBidUser = secondBidUser;
+		this.secondBidUserId = secondBidUserId;
+		this.secondBidUserName = secondBidUserName;
 	}
 
 	//Custom field getters
@@ -174,12 +178,21 @@ public class Item implements Serializable {
 		this.firstBid = firstBid;
 	}
 
-	public String getFirstBidUser() {
-		return firstBidUser;
+	public int getFirstBidUserId() {
+		return firstBidUserId;
 	}
 
-	public void setFirstBidUser(String firstBidUser) {
-		this.firstBidUser = firstBidUser;
+	public void setFirstBidUserId(int firstBidUserId) {
+		this.firstBidUserId = firstBidUserId;
+	}
+
+	
+	public String getFirstBidUserName() {
+		return firstBidUserName;
+	}
+
+	public void setFirstBidUserName(String firstBidUserName) {
+		this.firstBidUserName = firstBidUserName;
 	}
 
 	public int getSecondBid() {
@@ -190,12 +203,21 @@ public class Item implements Serializable {
 		this.secondBid = secondBid;
 	}
 
-	public String getSecondBidUser() {
-		return secondBidUser;
+
+	public int getSecondBidUserId() {
+		return secondBidUserId;
 	}
 
-	public void setSecondBidUser(String secondBidUser) {
-		this.secondBidUser = secondBidUser;
+	public void setSecondBidUserId(int secondBidUserId) {
+		this.secondBidUserId = secondBidUserId;
+	}
+	
+	public String getSecondBidUserName() {
+		return secondBidUserName;
+	}
+
+	public void setSecondBidUserName(String secondBidUserName) {
+		this.secondBidUserName = secondBidUserName;
 	}
 	
 }

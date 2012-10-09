@@ -44,9 +44,11 @@ public class Database {
 		               "seller.name AS owner, " +
 		               "i.minBid AS minBid, " +
 		               "i.firstBid AS firstBid, " +
-		               "bidder1.name AS firstBidUser, " +
+		               "bidder1.id as firstBidUserId, " +
+		               "bidder1.name AS firstBidUserName, " +
 		               "i.secondBid AS secondBid, " +
-		               "bidder2.name AS secondBidUser " +
+		               "bidder2.id AS secondBidUserId, " +
+		               "bidder2.name AS secondBidUserName " +
 					   "FROM item i " + 
 					   "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 					   "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -71,9 +73,11 @@ public class Database {
     					rs.getString("owner"),
     					rs.getInt("minBid"),
     					rs.getInt("firstBid"),
-    					rs.getString("firstBidUser"),
+    					rs.getInt("firstBidUserId"),
+    					rs.getString("firstBidUserName"),
     					rs.getInt("secondBid"),
-    					rs.getString("secondBidUser")));
+    					rs.getInt("secondBidUserId"),
+    					rs.getString("secondBidUserName")));
     	}
     	rs.close();
     	
@@ -95,9 +99,11 @@ public class Database {
 	                   "seller.name AS owner, " +
 		               "i.minBid AS minBid, " +
 	                   "i.firstBid AS firstBid, " +
-	                   "bidder1.name AS firstBidUser, " +
+		               "bidder1.id as firstBidUserId, " +
+		               "bidder1.name AS firstBidUserName, " +
 	                   "i.secondBid AS secondBid, " +
-	                   "bidder2.name AS secondBidUser " +
+		               "bidder2.id AS secondBidUserId, " +
+		               "bidder2.name AS secondBidUserName " +
 		    		   "FROM item i " + 
 				       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 				       "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -122,10 +128,12 @@ public class Database {
 					   df.parse(rs.getString("endDate")),
 					   rs.getString("owner"),
 					   rs.getInt("minBid"),
-					   rs.getInt("firstBid"),
-					   rs.getString("firstBidUser"),
-					   rs.getInt("secondBid"),
-					   rs.getString("secondBidUser")));
+   					   rs.getInt("firstBid"),
+   					   rs.getInt("firstBidUserId"),
+   				       rs.getString("firstBidUserName"),
+   					   rs.getInt("secondBid"),
+   					   rs.getInt("secondBidUserId"),
+   					   rs.getString("secondBidUserName")));
 		}
 		rs.close();
 		
@@ -145,9 +153,11 @@ public class Database {
                        "seller.name AS owner, " +
 		               "i.minBid AS minBid, " +
                        "i.firstBid AS firstBid, " +
-                       "bidder1.name AS firstBidUser, " +
+		               "bidder1.id as firstBidUserId, " +
+		               "bidder1.name AS firstBidUserName, " +
                        "i.secondBid AS secondBid, " +
-                       "bidder2.name AS secondBidUser " +
+		               "bidder2.id AS secondBidUserId, " +
+		               "bidder2.name AS secondBidUserName " +
 	    		       "FROM item i " + 
 	    		       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 		    	       "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -170,10 +180,12 @@ public class Database {
 						     df.parse(rs.getString("endDate")),
 						     rs.getString("owner"),
 						     rs.getInt("minBid"),
-						     rs.getInt("firstBid"),
-						     rs.getString("firstBidUser"),
-						     rs.getInt("secondBid"),
-						     rs.getString("secondBidUser"));
+		    				 rs.getInt("firstBid"),
+		    				 rs.getInt("firstBidUserId"),
+		    				 rs.getString("firstBidUserName"),
+		    				 rs.getInt("secondBid"),
+		    				 rs.getInt("secondBidUserId"),
+		    				 rs.getString("secondBidUserName"));
 		rs.close();
 
 		return item;
@@ -193,9 +205,11 @@ public class Database {
                        "seller.name AS owner, " +
 		               "i.minBid AS minBid, " +
                        "i.firstBid AS firstBid, " +
-                       "bidder1.name AS firstBidUser, " +
+		               "bidder1.id as firstBidUserId, " +
+		               "bidder1.name AS firstBidUserName, " +
                        "i.secondBid AS secondBid, " +
-                       "bidder2.name AS secondBidUser " +
+		               "bidder2.id AS secondBidUserId, " +
+		               "bidder2.name AS secondBidUserName " +
  	        	       "FROM item i " + 
  	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 	    	           "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -219,15 +233,56 @@ public class Database {
     						   df.parse(rs.getString("endDate")),
     						   rs.getString("owner"),
     						   rs.getInt("minBid"),
-    						   rs.getInt("firstBid"),
-    						   rs.getString("firstBidUser"),
-    						   rs.getInt("secondBid"),
-    						   rs.getString("secondBidUser")));
+    	    			       rs.getInt("firstBid"),
+    	    				   rs.getInt("firstBidUserId"),
+    	    				   rs.getString("firstBidUserName"),
+    	    				   rs.getInt("secondBid"),
+    	    				   rs.getInt("secondBidUserId"),
+    	    				   rs.getString("secondBidUserName")));
     	}
     	rs.close();
     	
     	return items;
 	}
+	
+	public void updateItemBids(int id, int firstBid, int firstBidUserId,
+							   int secondBid, int secondBidUserId) throws Exception {
+		
+		//Construct update
+		String update = "UPDATE item " +
+						"SET firstBid = ?, " +
+						"firstBidUser = ?, " +
+						"secondBid = ?, " +
+						"secondBidUser = ? " +
+						"WHERE id = ?";
+		PreparedStatement statement = connection.prepareStatement(update);
+		statement.setInt(1, firstBid);
+		statement.setInt(2, firstBidUserId);
+		statement.setInt(3, secondBid);
+		statement.setInt(4, secondBidUserId);
+		statement.setInt(5, id);
+		statement.setQueryTimeout(timeout);
+		
+		//execute update
+		statement.executeUpdate();
+	}
+	
+	public void updateItemBids(int id, int secondBid, int secondBidUserId) throws Exception {
+
+		//Construct update
+		String update = "UPDATE item " +
+				"SET secondBid = ?, " +
+				"secondBidUser = ? " +
+				"WHERE id = ? ";
+		PreparedStatement statement = connection.prepareStatement(update);
+		statement.setInt(1, secondBid);
+		statement.setInt(2, secondBidUserId);
+		statement.setInt(3, id);
+		statement.setQueryTimeout(timeout);
+		
+		//execute update
+		statement.executeUpdate();
+}
 	
 	public void updateItem(int id, Item item) throws Exception {
 		
@@ -254,9 +309,9 @@ public class Database {
 		statement.setString(6, df.format(item.getEndDate()));
 		statement.setString(7, item.getOwner());
 		statement.setInt(8, item.getFirstBid());
-		statement.setString(9, item.getFirstBidUser());
+		statement.setInt(9, item.getFirstBidUserId());
 		statement.setInt(10, item.getSecondBid());
-		statement.setString(11, item.getSecondBidUser());
+		statement.setInt(11, item.getSecondBidUserId());
 		statement.setInt(12, item.getId());
 		statement.setQueryTimeout(timeout);
 		
