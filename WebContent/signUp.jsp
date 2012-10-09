@@ -9,6 +9,7 @@
 
 <!-- Stylesheet -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
 <!-- End Stylesheet -->
 
 <!-- Javascript -->
@@ -27,6 +28,11 @@
 				emailaddress : {
 					required : true,
 					email : true,
+				},
+				
+				paypal : {
+					required : true,
+					minlength : 6,
 				},
 
 				password : {
@@ -55,6 +61,7 @@
 			<div class="control-group">
 				<label class="control-label"><h4>Username</h4></label> <input type="text" class="span4" name="username" placeholder="Username"></input>
 				<label class="control-label"><h4>Email Address</h4></label> <input type="text" class="span4" name="emailaddress" value=""></input>
+				<label class="control-label"><h4>PayPal Account Number</h4></label> <input type="text" class="span4" name="paypal" value=""></input>
 				<label class="control-label"><h4>Password</h4></label> <input type="password" class="span4" name="password"></input>
 				<label class="control-label"><h4>Confirm Password</h4></label> <input type="password" class="span4" name="confirmpassword" id="confirmpassword"></input>
 				<input type="hidden" name="command" value="register"></input>
