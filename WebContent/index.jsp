@@ -8,6 +8,7 @@
 
 <!-- Stylesheet -->
 <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link href="css/main.css" rel="stylesheet">
 <!-- End Stylesheet -->
 
 <!-- Javascript -->
@@ -25,28 +26,81 @@
       </div>	
       
         <div class="span9">
-          <div class="hero-unit">
-            <h1>Hello, world!</h1>
-            <p>Welcome to FIRE & ICE</p>
-            <p><a class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-          </div>
-          <div class="row-fluid">
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-            <div class="span4">
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn" href="#">View details &raquo;</a></p>
-            </div><!--/span-->
-          </div><!--/row-->
+        	<br>
+        	<table>
+        		<tr>
+        			<td>
+        				Category Name
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded"><br>
+        				<p>Item 1</p>
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded"><br>
+        				<p>Item 2</p>
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded">
+        				<p>Item 3</p>
+        			</td>
+        		</tr>
+        		
+        		<tr>
+        			<td>
+        				Category Name
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded"><br>
+        				<p>Item 1</p>
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded"><br>
+        				<p>Item 2</p>
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded">
+        				<p>Item 3</p>
+        			</td>
+        		</tr>
+        		
+        		<tr>
+        			<td>
+        				Category Name
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded"><br>
+        				<p>Item 1</p>
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded"><br>
+        				<p>Item 2</p>
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded">
+        				<p>Item 3</p>
+        			</td>
+        		</tr>
+        		
+        		<tr>
+        			<td>
+        				Category Name
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded"><br>
+        				<p>Item 1</p>
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded"><br>
+        				<p>Item 2</p>
+        			</td>
+        			<td>
+        				<img src="img/missing.png" class=img-rounded">
+        				<p>Item 3</p>
+        			</td>
+        		</tr>	
+        	
+        	</table>
         </div><!--/span-->
       </div><!--/row-->
 
