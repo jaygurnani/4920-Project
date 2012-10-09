@@ -30,6 +30,7 @@
 	              			</form>
 	            	</div>
           		</li>
+          		<li><a href="signUp.jsp">Sign Up</a></li>
        		 </ul>
 
             <ul class="nav">
