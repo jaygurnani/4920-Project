@@ -10,7 +10,8 @@ create table item (
 	firstBid		integer,
 	secondBid		integer,
 	firstBidUser	INTEGER REFERENCES user(id),
-	secondBidUser	INTEGER REFERENCES user(id)
+	secondBidUser	INTEGER REFERENCES user(id),
+	minBid 			INTEGER
 );
 
 create table user (
@@ -31,5 +32,7 @@ create table details (
 	address			VARCHAR(50),
 	rating			INTEGER,
 	ratingcount		INTEGER,
+	paypalAcct		INTEGER,
+	email			VARCHAR(50),
 	about			VARCHAR(50)
 );
