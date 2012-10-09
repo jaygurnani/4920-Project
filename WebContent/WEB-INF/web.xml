@@ -10,43 +10,63 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-  	<description>Search all items</description>
-  	<display-name>Search</display-name>
-  	<servlet-name>Search</servlet-name>
-  	<servlet-class>main.Search</servlet-class>
+    <description>Search all items</description>
+    <display-name>Search</display-name>
+    <servlet-name>Search</servlet-name>
+    <servlet-class>main.Search</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Search</servlet-name>
     <url-pattern>/search</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<description>Display all items in a category</description>
-  	<display-name>Category</display-name>
-  	<servlet-name>Category</servlet-name>
-  	<servlet-class>main.Category</servlet-class>
+    <description>Display all items in a category</description>
+    <display-name>Category</display-name>
+    <servlet-name>Category</servlet-name>
+    <servlet-class>main.Category</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Category</servlet-name>
     <url-pattern>/category</url-pattern>
   </servlet-mapping>
   <servlet>
-  	<description>Display information about an item</description>
-  	<display-name>Display</display-name>
-  	<servlet-name>Display</servlet-name>
-  	<servlet-class>main.Display</servlet-class>
+    <description>Display information about an item</description>
+    <display-name>Display</display-name>
+    <servlet-name>Display</servlet-name>
+    <servlet-class>main.Display</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Display</servlet-name>
     <url-pattern>/display</url-pattern>
   </servlet-mapping>
-    <servlet>
-  	<description>Attempt to make a bid</description>
-  	<display-name>MakeBid</display-name>
-  	<servlet-name>MakeBid</servlet-name>
-  	<servlet-class>main.MakeBid</servlet-class>
+  <servlet>
+    <description>Attempt to make a bid</description>
+    <display-name>MakeBid</display-name>
+    <servlet-name>MakeBid</servlet-name>
+    <servlet-class>main.MakeBid</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>MakeBid</servlet-name>
     <url-pattern>/makeBid</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Controller</display-name>
+    <servlet-name>Controller</servlet-name>
+    <servlet-class>servlets.Controller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Controller</servlet-name>
+    <url-pattern>/Controller</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>Register</display-name>
+    <servlet-name>Register</servlet-name>
+    <servlet-class>servlets.Register</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Register</servlet-name>
+    <url-pattern>/Register</url-pattern>
   </servlet-mapping>
 </web-app>
