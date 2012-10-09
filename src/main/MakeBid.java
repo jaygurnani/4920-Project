@@ -61,7 +61,7 @@ public class MakeBid extends HttpServlet {
 			//bid is valid, execute it
 			if (bid > item.getFirstBid()) {
 				db.updateItemBids(id, bid, userId, item.getFirstBid(), item.getFirstBidUserId());
-			} else if (bid > item.getSecondBid()) {
+			} else if (bid > item.getSecondBid() && (item.getFirstBidUserId() != userId)) {
 				db.updateItemBids(id, item.getFirstBid(), item.getFirstBidUserId(), bid, userId);
 			}
 			//send success message
