@@ -42,7 +42,8 @@
 				<c:if test="${!empty successfulBid}">
 					<div class="alert alert-success">
 						<h4>Success!</h4>
-						Your bid of $${successfulBid} was successful.
+						Your bid of $${successfulBid} was successful. <br>
+						Note: Any previous higher bids you made take precedence.
 					</div>
 				</c:if>
 				<table class=table-bordered>
