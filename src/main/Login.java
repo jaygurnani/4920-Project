@@ -1,15 +1,13 @@
 package main;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 
 
 /**
@@ -33,6 +31,8 @@ public class Login extends HttpServlet {
 		String username = "";
 		String password = "";
 		
+		boolean authenticated = false;
+		
 		Hash h = new Hash();
 		
 		
@@ -46,9 +46,14 @@ public class Login extends HttpServlet {
 				 password = h.calculate(request.getParameter("password"));
 			 }
 			 
-			 
-			request.setAttribute("loggedIn", db.checkLogin(username, password));
-			request.setAttribute("user", username);
+			 authenticated = db.checkLogin(username, password);
+			 request.getSession().setAttribute("loggedIn", authenticated);
+			 if(authenticated){
+				request.getSession().setAttribute("user", username);
+				//Store ID as well?
+			 }
+				
+		    
 			RequestDispatcher view = request.getRequestDispatcher("login.jsp");
 			view.forward(request, response);
 
