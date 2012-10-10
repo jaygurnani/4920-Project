@@ -318,4 +318,27 @@ public class Database {
 		//execute update
 		statement.executeUpdate();
 	}
+	
+	public boolean checkLogin(String username, String password) throws Exception {
+		boolean valid = false;
+			
+			String query = "SELECT COUNT(id) AS count " +
+					"FROM user u " +
+					"WHERE u.name = ? " +
+					"AND u.password = ?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, username);
+		statement.setString(1, password);
+		statement.setQueryTimeout(timeout);
+		ResultSet rs = statement.executeQuery();
+		    	
+		//add all results to items
+		rs.next();
+		if(rs.getString("count").equals("1")){
+			valid = true;
+		}
+		rs.close();
+		
+		return valid;
+	}
 }
