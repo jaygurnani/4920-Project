@@ -341,4 +341,25 @@ public class Database {
 		
 		return valid;
 	}
+	
+	public boolean isUser(String username) throws Exception {
+		boolean valid = false;
+			
+			String query = "SELECT COUNT(id) AS count " +
+					"FROM user u " +
+					"WHERE u.name = ?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, username);
+		statement.setQueryTimeout(timeout);
+		ResultSet rs = statement.executeQuery();
+		    	
+		//add all results to items
+		rs.next();
+		if(rs.getString("count").equals("1")){
+			valid = true;
+		}
+		rs.close();
+		
+		return valid;
+	}
 }
