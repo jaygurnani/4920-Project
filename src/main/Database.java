@@ -328,7 +328,7 @@ public class Database {
 					"AND u.password = ?";
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setString(1, username);
-		statement.setString(1, password);
+		statement.setString(2, password);
 		statement.setQueryTimeout(timeout);
 		ResultSet rs = statement.executeQuery();
 		    	
