@@ -8,6 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Database.Database;
+import Database.Item;
+
 public class Display extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -22,6 +25,7 @@ public class Display extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		
 		Database db = null;
+		int id = 0;
 		
 		//check and get Parameters
 		if (!request.getParameterMap().containsKey("id")) {
@@ -30,7 +34,14 @@ public class Display extends HttpServlet {
 			view.forward(request, response);
 			return;
 		}
-		int id = Integer.valueOf(request.getParameter("id"));
+		//if id isn't a number, don't look up
+		try {
+			id = Integer.valueOf(request.getParameter("id"));
+		} catch (NumberFormatException e) {
+			request.setAttribute("item", null);
+			RequestDispatcher view = request.getRequestDispatcher("displayItem.jsp");
+			view.forward(request, response);
+		}
 		
 		//Handle messages (from MakeBid)
 		if (request.getParameterMap().containsKey("err")) {

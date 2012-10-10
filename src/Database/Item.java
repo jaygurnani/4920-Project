@@ -1,4 +1,4 @@
-package main;
+package Database;
 
 import java.io.Serializable;
 import java.text.DateFormat;
@@ -17,7 +17,8 @@ public class Item implements Serializable {
 	private String category;
 	private Date startDate;
 	private Date endDate;
-	private String owner;
+	private int ownerId;
+	private String ownerName;
 	private int minBid;
 	private int firstBid;
 	private int firstBidUserId;
@@ -33,7 +34,7 @@ public class Item implements Serializable {
 	//set up object with specified values
 	public Item(int id, String Description, String startLocation, 
 			    String shipsTo, String category, Date startDate,
-			    Date endDate, String owner, int minBid, 
+			    Date endDate, int ownerId, String ownerName, int minBid, 
 			    int firstBid, int firstBidUserId, String firstBidUserName, 
 			    int secondBid,int secondBidUserId, String secondBidUserName) {
 		this.id = id;
@@ -43,7 +44,8 @@ public class Item implements Serializable {
 		this.category = category;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.owner = owner;
+		this.ownerId = ownerId;
+		this.ownerName = ownerName;
 		this.minBid = minBid;
 		this.firstBid = firstBid;
 		this.firstBidUserId = firstBidUserId;
@@ -82,6 +84,16 @@ public class Item implements Serializable {
 			sb.append(endsIn / 1000);
 			sb.append(" seconds");
 			return sb.toString();
+		}
+	}
+	
+	//the winning amount is the secondBid if it has been made,
+	//if it hasn't it's the first bid
+	public String getWinBidString() {
+		if (secondBid != 0 && secondBid > minBid) {
+			return getSecondBidString();
+		} else {
+			return getFirstBidString();
 		}
 	}
 	
@@ -154,12 +166,20 @@ public class Item implements Serializable {
 		this.endDate = endDate;
 	}
 
-	public String getOwner() {
-		return owner;
+	public int getOwnerId() {
+		return ownerId;
 	}
 
-	public void setOwner(String owner) {
-		this.owner = owner;
+	public void setOwnerId(int ownerId) {
+		this.ownerId = ownerId;
+	}
+
+	public String getOwner() {
+		return ownerName;
+	}
+
+	public void setOwnerName(String ownerName) {
+		this.ownerName = ownerName;
 	}
 
 	public int getMinBid() {

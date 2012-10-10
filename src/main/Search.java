@@ -1,7 +1,5 @@
 package main;
 
-import main.Database;
-import main.Item;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,6 +9,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import Database.Database;
+import Database.Item;
 
 public class Search extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,29 +28,33 @@ public class Search extends HttpServlet {
 		
 		Database db = null;		
 		List<Item> items;
+		int sortBy = 0;
 		
+		//get sortBy value if it exists, if it's an invalid value, use default
+		if (request.getParameter("sortBy") != null) {
+			try {
+				sortBy = Integer.valueOf(request.getParameter("sortBy"));
+			} catch (NumberFormatException e) {
+				//do nothing
+			}
+		}
 		
 		try {
 			//get items from database
 			db = new Database();
 			
-			if (request.getParameter("sortBy") == null) {
-				items = db.search(request.getParameter("q"));
-			} else {
-				int sortBy = Integer.valueOf(request.getParameter("sortBy"));
-				switch (sortBy) {
-					case 1:
-						items = db.sortedSearch(request.getParameter("q"), "Description");
-						break;
-					case 2:
-						items = db.sortedSearch(request.getParameter("q"), "endDate");
-						break;
-					case 3:
-						items = db.sortedSearch(request.getParameter("q"), "owner");
-						break;
-					default:
-						items = db.search(request.getParameter("q"));
-				}
+			switch (sortBy) {
+				case 1:
+					items = db.sortedSearch(request.getParameter("q"), "Description");
+					break;
+				case 2:
+					items = db.sortedSearch(request.getParameter("q"), "endDate");
+					break;
+				case 3:
+					items = db.sortedSearch(request.getParameter("q"), "ownerName");
+					break;
+				default:
+					items = db.search(request.getParameter("q"));
 			}
 			
 			//pass items to results

@@ -69,4 +69,14 @@
     <servlet-name>Register</servlet-name>
     <url-pattern>/Register</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>PayPalTest</display-name>
+    <servlet-name>PayPalTest</servlet-name>
+    <servlet-class>main.PayPalTest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PayPalTest</servlet-name>
+    <url-pattern>/PayPalTest</url-pattern>
+  </servlet-mapping>
 </web-app>

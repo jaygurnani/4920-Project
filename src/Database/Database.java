@@ -1,9 +1,10 @@
-package main;
+package Database;
 
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 
 public class Database {
 	
@@ -41,7 +42,8 @@ public class Database {
 		               "i.category AS category, " +
 		               "i.startDate AS startDate, " +
 		               "i.endDate AS endDate, " +
-		               "seller.name AS owner, " +
+		               "seller.id AS ownerId, " +
+		               "seller.name AS ownerName, " +
 		               "i.minBid AS minBid, " +
 		               "i.firstBid AS firstBid, " +
 		               "bidder1.id as firstBidUserId, " +
@@ -70,7 +72,8 @@ public class Database {
     					rs.getString("category"),
     					df.parse(rs.getString("startDate")),
     					df.parse(rs.getString("endDate")),
-    					rs.getString("owner"),
+    					rs.getInt("ownerId"),
+    					rs.getString("ownerName"),
     					rs.getInt("minBid"),
     					rs.getInt("firstBid"),
     					rs.getInt("firstBidUserId"),
@@ -96,7 +99,8 @@ public class Database {
 	                   "i.category AS category, " +
 	                   "i.startDate AS startDate, " +
 	                   "i.endDate AS endDate, " +
-	                   "seller.name AS owner, " +
+	                   "seller.id AS ownerId, " +
+	                   "seller.name AS ownerName, " +
 		               "i.minBid AS minBid, " +
 	                   "i.firstBid AS firstBid, " +
 		               "bidder1.id as firstBidUserId, " +
@@ -126,7 +130,8 @@ public class Database {
 					   rs.getString("category"),
 					   df.parse(rs.getString("startDate")),
 					   df.parse(rs.getString("endDate")),
-					   rs.getString("owner"),
+					   rs.getInt("ownerId"),
+					   rs.getString("ownerName"),
 					   rs.getInt("minBid"),
    					   rs.getInt("firstBid"),
    					   rs.getInt("firstBidUserId"),
@@ -150,7 +155,8 @@ public class Database {
                        "i.category AS category, " +
                        "i.startDate AS startDate, " +
                        "i.endDate AS endDate, " +
-                       "seller.name AS owner, " +
+                       "seller.id AS ownerId, " +
+                       "seller.name AS ownerName, " +
 		               "i.minBid AS minBid, " +
                        "i.firstBid AS firstBid, " +
 		               "bidder1.id as firstBidUserId, " +
@@ -178,7 +184,8 @@ public class Database {
 						     rs.getString("category"),
 						     df.parse(rs.getString("startDate")),
 						     df.parse(rs.getString("endDate")),
-						     rs.getString("owner"),
+						     rs.getInt("ownerId"),
+						     rs.getString("ownerName"),
 						     rs.getInt("minBid"),
 		    				 rs.getInt("firstBid"),
 		    				 rs.getInt("firstBidUserId"),
@@ -202,7 +209,8 @@ public class Database {
                        "i.category AS category, " +
                        "i.startDate AS startDate, " +
                        "i.endDate AS endDate, " +
-                       "seller.name AS owner, " +
+                       "seller.id AS ownerId, " +
+                       "seller.name AS ownerName, " +
 		               "i.minBid AS minBid, " +
                        "i.firstBid AS firstBid, " +
 		               "bidder1.id as firstBidUserId, " +
@@ -211,7 +219,7 @@ public class Database {
 		               "bidder2.id AS secondBidUserId, " +
 		               "bidder2.name AS secondBidUserName " +
  	        	       "FROM item i " + 
- 	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
+ 	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id) " +
 	    	           "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
 		               "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
 		               "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
@@ -231,7 +239,8 @@ public class Database {
     						   rs.getString("category"),
     						   df.parse(rs.getString("startDate")),
     						   df.parse(rs.getString("endDate")),
-    						   rs.getString("owner"),
+    						   rs.getInt("ownerId"),
+    						   rs.getString("ownerName"),
     						   rs.getInt("minBid"),
     	    			       rs.getInt("firstBid"),
     	    				   rs.getInt("firstBidUserId"),
@@ -243,6 +252,47 @@ public class Database {
     	rs.close();
     	
     	return items;
+	}
+	
+	public User getUserById(int id) throws Exception {
+		
+		String defaultPayPalAcct = "buyer_1349884489_per@parafox.net";
+		
+		//set up query
+		String query = "SELECT u.id AS id, " +
+					   "u.name AS name, " +
+					   "u.password AS password, " +
+					   "d.id AS detailsID, " +
+					   "d.birthday AS birthdate, " +
+					   "d.address AS address, " +
+					   "d.rating AS rating, " +
+					   "d.ratingcount AS ratingCount, " +
+					   "d.paypalAcct AS payPalAcct, " +
+					   "d.email AS email, " +
+					   "d.about AS about " +
+					   "FROM user u " +
+					   "INNER JOIN details d ON (u.userdetails = d.id) " +
+					   "WHERE u.id = ?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setInt(1, id);
+		statement.setQueryTimeout(timeout);
+		ResultSet rs = statement.executeQuery();
+				
+		//Create User from result
+		User user = new User(rs.getInt("id"),
+							 rs.getString("name"),
+							 rs.getString("password"),
+							 rs.getInt("detailsId"),
+							 df.parse(rs.getString("birthdate")),
+							 rs.getString("address"),
+							 rs.getInt("rating"),
+							 rs.getInt("ratingCount"),
+							 defaultPayPalAcct,
+							 rs.getString("email"),
+							 rs.getString("about"));
+		rs.close();
+		
+		return user;
 	}
 	
 	public void updateItemBids(int id, int firstBid, int firstBidUserId,
@@ -341,4 +391,5 @@ public class Database {
 		
 		return valid;
 	}
+
 }
