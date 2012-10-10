@@ -48,8 +48,7 @@ public class Login extends HttpServlet {
 			 
 			 
 			request.setAttribute("loggedIn", db.checkLogin(username, password));
-			request.setAttribute("username", username);
-			request.setAttribute("hash", password);
+			request.setAttribute("user", username);
 			RequestDispatcher view = request.getRequestDispatcher("login.jsp");
 			view.forward(request, response);
 

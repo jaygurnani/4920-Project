@@ -26,13 +26,10 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="page-header">
-				<h1>Login: ${loggedIn}</h1>
-				Welcome ${username}<br>
-				Hash: ${hash}
-
-			</div>
-
-		<form action="Login" accept-charset="UTF-8" method="post" id="user-login">
+				<h1>Login <c:if test="${!loggedIn}">un</c:if>successful</h1>
+				<c:if test="${loggedIn}">Welcome ${user}</c:if>
+				<c:if test="${!loggedIn}">
+<form action="Login" accept-charset="UTF-8" method="post" id="user-login">
 		<fieldset><div class="fieldset-wrapper"><div class="form-item" id="edit-name-wrapper">
 		<label for="edit-name">Username: <span class="form-required" title="This field is required.">*</span></label>
 		<input type="text" maxlength="60" name="username" id="edit-name" size="60" value="" tabindex="1" class="form-text required">
@@ -44,8 +41,16 @@
 		</div>
 		</div></fieldset>
 		<input type="submit" name="op" id="edit-submit" value="Log in" tabindex="3" class="form-submit">
-		<div class="description">New to [THIS_WEB_SITE]? <a href="/signup.jsp" class="ext" target="_blank">Sign up</a><span class="ext"></span></div>
+		<div class="description">New to [THIS_WEB_SITE]? <a href="signUp.jsp" class="ext" target="_blank">Sign up</a><span class="ext"></span></div>
 		</form>
+
+
+
+</c:if>
+
+			</div>
+
+		
 
 		</div>
 	</div>
