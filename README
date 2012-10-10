@@ -2,3 +2,8 @@
 2. Import this git into your eclipse as existing project
 3. Change your build from Java OSX to your native Java Library
 4. Run index.jsp on your TomCat server
+
+
+Note: passwords are now hashed, changing passwords has not been implemented yet, to reset to a blank password, the hash is
+18FDFF8D3682ABE4F3EF8C60B2FE98DEBC29712A
+manually change this in the db if you want to log in
