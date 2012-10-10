@@ -25,31 +25,7 @@ public class Login extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	private static String salt = "blaaaaaaaaaaaaaaaaaaaaaaaaaaaargh, GET THIS OUT OF THE SOURCE CODE, STORE SOMEWHERE SAFE, perhaps make random";
-	private static int hashIterations = 100;
-	
-	private String hash(String in) throws UnsupportedEncodingException, NoSuchAlgorithmException{
-		String hash = "";
-		
-		byte[] saltB = salt.getBytes("utf8");
-				
-		MessageDigest cript = MessageDigest.getInstance("SHA-1");
-        cript.reset();
-        cript.update(saltB);
-        //hash = new String(Hex.encodeHex(cript.digest()), CharSet.forName("UTF-8"));
-        byte[] digest = cript.digest(in.getBytes("utf8"));
-        
-        for(int i = 0; i < hashIterations; i++){
-        	cript.reset();
-            cript.update(saltB);
-            digest = cript.digest(digest);
-        }
-        for(int i = 0; i < digest.length; i++){
-        	hash += (String.format("%02X", digest[i]) );
-        }
-        
-		return hash;		
-	}
+
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Database db = null;
@@ -57,6 +33,7 @@ public class Login extends HttpServlet {
 		String username = "";
 		String password = "";
 		
+		Hash h = new Hash();
 		
 		
 		try {
@@ -65,7 +42,8 @@ public class Login extends HttpServlet {
 			
 			 if(request.getParameter("username") != null && request.getParameter("password") != null){
 				 username = request.getParameter("username");
-				 password = hash(request.getParameter("password"));
+				 
+				 password = h.calculate(request.getParameter("password"));
 			 }
 			 
 			 
