@@ -27,7 +27,8 @@
 		<div class="row-fluid">
 			<div class="page-header">
 				<h1>Login: ${loggedIn}</h1>
-				Welcome ${username}
+				Welcome ${username}<br>
+				Hash: ${hash}
 
 			</div>
 
