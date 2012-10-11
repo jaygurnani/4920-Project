@@ -17,7 +17,7 @@ create table item (
 create table user (
 	id 				INTEGER PRIMARY KEY,
 	name 			VARCHAR(10) not null,
-	password 		VARCHAR(15) not null,
+	password 		VARCHAR(50) not null,
 	userdetails 	INTEGER REFERENCES details(id)
 );
 
@@ -32,7 +32,7 @@ create table details (
 	address			VARCHAR(50),
 	rating			INTEGER,
 	ratingcount		INTEGER,
-	paypalAcct		INTEGER,
+	paypalAcct		VARCHAR(50),
 	email			VARCHAR(50),
 	about			VARCHAR(50)
 );

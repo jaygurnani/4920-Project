@@ -29,3 +29,14 @@ INSERT INTO "locations" VALUES(16, "Western Australia");
 INSERT INTO "locations" VALUES(17, "North Territories");
 INSERT INTO "locations" VALUES(18, "Melbourne");
 INSERT INTO "locations" VALUES(19, "Dubbo");
+
+INSERT INTO "details" VALUES (1,  "1991-01-01", "101 George St, Sydney, NSW, 2000", 5, 100, "jay_1349952995_biz@parafox.net",    "jay.gurnani@gmail.com",    "I love Fire&Ice!");
+INSERT INTO "details" VALUES (2,  "1991-02-01", "102 George St, Sydney, NSW, 2000", 5, 43,  "andrew_1349953074_biz@parafox.net", "andrew.lai@live.com",      "I love Fire&Ice!");
+INSERT INTO "details" VALUES (3,  "1991-03-01", "103 George St, Sydney, NSW, 2000", 5, 53,  "thiluk_1349953152_biz@parafox.net", "lankanstar7@hotmail.com",  "I love Fire&Ice!");
+INSERT INTO "details" VALUES (4,  "1991-04-01", "104 George St, Sydney, NSW, 2000", 5, 102, "rowan_1349953211_biz@parafox.net",  "rowan.f.leeder@gmail.com", "I love Fire&Ice!");
+INSERT INTO "details" VALUES (5,  "1991-05-01", "105 George St, Sydney, NSW, 2000", 5, 86,  "ben_1349953501_biz@parafox.net",    "bfaull@algorhyt.hm",       "I love Fire&Ice!");
+INSERT INTO "details" VALUES (6,  "1991-06-01", "106 George St, Sydney, NSW, 2000", 5, 23,  "bob_1349953661_biz@parafox.net",    "bob@algorhyt.hm",          "I love Fire&Ice!");
+INSERT INTO "details" VALUES (7,  "1991-07-01", "107 George St, Sydney, NSW, 2000", 5, 75,  "alice_1349953730_per@parafox.net",  "alice@algorhyt.hm",        "I love Fire&Ice!");
+INSERT INTO "details" VALUES (8,  "1991-08-01", "108 George St, Sydney, NSW, 2000", 5, 64,  "peter_1349953816_biz@parafox.net",  "peter@algorhyt.hm",        "I love Fire&Ice!");
+INSERT INTO "details" VALUES (9,  "1991-09-01", "109 George St, Sydney, NSW, 2000", 5, 150, "mich_1349953888_biz@parafox.net",   "michelle@algorhyt.hm",     "I love Fire&Ice!");
+INSERT INTO "details" VALUES (10, "1991-10-01", "110 George St, Sydney, NSW, 2000", 5, 20,  "john_1349953957_biz@parafox.net",   "john@algorhyt.hm",         "I love Fire&Ice!");
