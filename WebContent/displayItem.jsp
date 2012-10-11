@@ -60,7 +60,7 @@
 								<tr><td>Ships To:</td><td>${item.shipsTo}</td></tr>
 								<tr><td>Ends In:</td><td>${item.endsIn} (${item.endDateString})</td></tr>
 								<tr><td>Started:</td><td>${item.startDateString}</td></tr>
-								<tr><td>Seller:</td><td>${item.owner}</td></tr>
+								<tr><td>Seller:</td><td><a href="showUser?id=${item.ownerId}">${item.ownerName}</a></td></tr>
 								<tr>
 									<td>Make Bid:</td>
 									<td>

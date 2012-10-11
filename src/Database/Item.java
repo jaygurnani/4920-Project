@@ -174,7 +174,7 @@ public class Item implements Serializable {
 		this.ownerId = ownerId;
 	}
 
-	public String getOwner() {
+	public String getOwnerName() {
 		return ownerName;
 	}
 

@@ -79,4 +79,14 @@
     <servlet-name>PayPalTest</servlet-name>
     <url-pattern>/PayPalTest</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowUser</display-name>
+    <servlet-name>ShowUser</servlet-name>
+    <servlet-class>main.ShowUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowUser</servlet-name>
+    <url-pattern>/showUser</url-pattern>
+  </servlet-mapping>
 </web-app>

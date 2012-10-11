@@ -87,7 +87,7 @@
 							<td>${item.category}</td>
 							<td>${item.startLocation}</td>
 							<td>${item.endsIn}</td>
-							<td>${item.owner}</td>
+							<td><a href="showUser?id=${item.ownerId}">${item.ownerName}</a></td>
 						</tr>
 					</c:forEach>
 				</c:when>
