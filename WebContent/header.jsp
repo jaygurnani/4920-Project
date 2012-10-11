@@ -28,7 +28,7 @@
           		
           		<c:choose>
 					<c:when test="${loggedIn}">
-						<li><p><i class="icon-user icon-white"></i> $${user}</p></li>
+						<li><p><i class="icon-user icon-white"></i> ${userName}</p></li>
 						<li><a href="logout.jsp">Log out</a></li>
 					</c:when>
 					<c:otherwise>

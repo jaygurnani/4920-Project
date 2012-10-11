@@ -49,7 +49,7 @@ public class Login extends HttpServlet {
 			 authenticated = db.checkLogin(username, password);
 			 request.getSession().setAttribute("loggedIn", authenticated);
 			 if(authenticated){
-				request.getSession().setAttribute("user", username);
+				request.getSession().setAttribute("userName", username);
 				//Store ID as well?
 			 }
 				

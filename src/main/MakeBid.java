@@ -31,7 +31,7 @@ public class MakeBid extends HttpServlet {
 			response.sendRedirect("display?id="+request.getParameter("id")+"&err=0");
 			return;
 		}
-		userName = (String)request.getSession().getAttribute("user");
+		userName = (String)request.getSession().getAttribute("userName");
 		
 		//check and get Parameters (id and bid)
 		if (!request.getParameterMap().containsKey("id")) {
