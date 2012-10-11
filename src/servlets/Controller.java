@@ -32,10 +32,17 @@ public class Controller extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String command = request.getParameter("command");
+		System.out.println("Command = " + command);
 		
 		if(command.equals("register"))	{
-			//FORWARD TO REGISTER
+			//Forward to register
 			getServletContext().getRequestDispatcher("/Register").forward(request, response);
+		} else if (command.contains("login")){
+			//Forward to Login
+			getServletContext().getRequestDispatcher("/Login").forward(request, response);
+			
+			
+			
 		} else {
 			//NO SPECIFIC COMMAND, SEND BACK TO INDEX.
 			response.sendRedirect("index.jsp");

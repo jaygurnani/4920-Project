@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
     <div class="navbar navbar-inverse navbar-fixed-top">
       <div class="navbar-inner">
         <div class="container-fluid">
@@ -24,8 +28,7 @@
           		
           		<c:choose>
 					<c:when test="${loggedIn}">
-						<li><p>Hello ${user}</p></li>
-						<li class="divider-vertical"></li>
+						<li><p><i class="icon-user icon-white"></i> $${user}</p></li>
 						<li><a href="logout.jsp">Log out</a></li>
 					</c:when>
 					<c:otherwise>
@@ -33,19 +36,17 @@
 			            	<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
 			            	<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
 			            		<!--  Login Form goes here -->
-			              			<form action="login" method ="post">
-			              			Username: <input type="text" name="username" /><br />
-			              			Password: <input type="password" name ="password"><br />
+			              			<form action=Controller method ="post">
+			              			<i class="icon-user"></i>Username: <input type="text" name="username" /><br />
+			              			<i class="icon-asterisk"></i>Password: <input type="password" name ="password"><br />
+			              			<input type="hidden" name="command" value="login"></input> 
+			              			<input type="submit" value="Login" /></input>
 			              			</form>
 			            	</div>
 		          		</li>
 		          		<li><a href="signUp.jsp">Sign Up</a></li>
 					</c:otherwise>
-				</c:choose>
-         		
-          		
-          		
-          		
+				</c:choose>  	     		
           		
        		 </ul>
 
