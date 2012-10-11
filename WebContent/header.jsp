@@ -28,11 +28,7 @@
           		
           		<c:choose>
 					<c:when test="${loggedIn}">
-<<<<<<< HEAD
-						<li><p><i class="icon-user icon-white"></i> ${userName}</p></li>
-=======
-						<li><i class="icon-user icon-white"></i> ${user}</li>
->>>>>>> Updated Database
+						<li><i class="icon-user icon-white"></i>${userName}</li>
 						<li><a href="logout.jsp">Log out</a></li>
 					</c:when>
 					<c:otherwise>
