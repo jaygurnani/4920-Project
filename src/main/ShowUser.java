@@ -53,8 +53,6 @@ public class ShowUser extends HttpServlet {
 			db = new Database();
 			User user = db.getUserById(id);
 			List<Item> items = db.getItemsBySeller(user.getId());
-	
-			System.out.println(user + ", " + items);
 			
 			//pass user and items to display page
 			request.setAttribute("user", user);

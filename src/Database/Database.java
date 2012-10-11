@@ -310,6 +310,46 @@ public class Database {
     	return items;
 	}
 	
+	public User getUserByName(String name) throws Exception {
+		String defaultPayPalAcct = "buyer_1349884489_per@parafox.net";
+		
+		//set up query
+		String query = "SELECT u.id AS id, " +
+					   "u.name AS name, " +
+					   "u.password AS password, " +
+					   "d.id AS detailsID, " +
+					   "d.birthday AS birthdate, " +
+					   "d.address AS address, " +
+					   "d.rating AS rating, " +
+					   "d.ratingcount AS ratingCount, " +
+					   "d.paypalAcct AS payPalAcct, " +
+					   "d.email AS email, " +
+					   "d.about AS about " +
+					   "FROM user u " +
+					   "INNER JOIN details d ON (u.userdetails = d.id) " +
+					   "WHERE u.name = ?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, name);
+		statement.setQueryTimeout(timeout);
+		ResultSet rs = statement.executeQuery();
+				
+		//Create User from result
+		User user = new User(rs.getInt("id"),
+							 rs.getString("name"),
+							 rs.getString("password"),
+							 rs.getInt("detailsId"),
+							 df.parse(rs.getString("birthdate")),
+							 rs.getString("address"),
+							 rs.getInt("rating"),
+							 rs.getInt("ratingCount"),
+							 defaultPayPalAcct,
+							 rs.getString("email"),
+							 rs.getString("about"));
+		rs.close();
+		
+		return user;
+	}
+	
 	public User getUserById(int id) throws Exception {
 		
 		String defaultPayPalAcct = "buyer_1349884489_per@parafox.net";

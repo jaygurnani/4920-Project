@@ -47,13 +47,13 @@ public class Display extends HttpServlet {
 		if (request.getParameterMap().containsKey("err")) {
 			switch (Integer.valueOf(request.getParameter("err"))) {
 				case 0:
-					request.setAttribute("error", "You didn't supply a bid.");
+					request.setAttribute("error", "You're not logged in.");
 					break;
 				case 1:
-					request.setAttribute("error", "That bid was below the minimum bid.");
+					request.setAttribute("error", "Your bid was invalid.");
 					break;
 				case 2:
-					request.setAttribute("error", "That bid was below your previous bid.");
+					request.setAttribute("error", "That bid was below the minimum bid.");
 					break;
 			}
 		} else if (request.getParameterMap().containsKey("bid")) {
