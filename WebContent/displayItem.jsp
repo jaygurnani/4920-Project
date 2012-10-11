@@ -25,14 +25,17 @@
 				<h1>Item Details</h1>
 				<small>${item.description}</small>
 			</div>
+			
+			<%-- No item found --%>
 			<c:choose>
 			<c:when test="${empty item}">
 				<div class="alert alert-error">
-					<%--<button type="button" class="close" data-dismiss="alert">x</button>--%>
 					<h4>Error:</h4> No such item.
 				</div>
 			</c:when>
 			<c:otherwise>
+				
+				<%-- Display Errors/Successful bid messages --%>
 				<c:if test="${!empty error}">
 					<div class="alert alert-error">
 						<h4>Sorry!</h4>
@@ -46,6 +49,8 @@
 						Note: Any previous higher bids you made take precedence.
 					</div>
 				</c:if>
+				
+				<%--Item Details --%>
 				<table class=table-bordered>
 				<tr>
 					<th>Image</th>
@@ -68,11 +73,18 @@
 											<input type="hidden" name="id" value="${param.id}">
 											<div class="input-prepend input-append span2" style="margin-bottom:0px;">
 												<span class="add-on">$</span>
-												<input class="span3" type="text" name="bid" placeholder="${item.minBidString}">
-												<button class="btn" type="submit">Bid!</button>
+												<input class="span3" type="text" name="bid" placeholder="${item.minBidString}"  <c:if test="${!loggedIn}">disabled</c:if>>
+												<button class="btn" type="submit"  <c:if test="${!loggedIn}">disabled</c:if>>Bid!</button>
 											</div>
 										</form>
-										<small>(Minimum Bid $${item.minBidString})</small>
+										<c:choose>
+										<c:when test="${loggedIn}">
+											<small>(Minimum Bid $${item.minBidString})</small>
+										</c:when>
+										<c:otherwise>
+											<small>You must sign in to bid.</small>
+										</c:otherwise>
+										</c:choose>
 									</td>
 								</tr>
 							</tbody>
