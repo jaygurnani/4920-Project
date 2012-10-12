@@ -20,7 +20,7 @@
 	$(document).ready(function()	{
 		$("#register").validate({
 			rules: {
-				username: {
+				name: {
 					required: true,
 					minlength : 6,
 				},
@@ -57,18 +57,27 @@
 					<small>Enter information about your new auction</small>
 			</div>
 			
-			<form id="register" action="newAuction" method="post">
+			<c:if test="${!empty error}">
+					<div class="alert alert-error">
+						<h4>Sorry!</h4>
+						${error}
+					</div>
+				</c:if>
+			
+			<form id="register" action="makeAuction" method="post">
 			<div class="control-group">
-				<label class="control-label"><h4>Item Name</h4></label> <input type="text" class="span4" name="name"></input>
+				<label class="control-label"><h4>Item Name</h4></label> <input type="text" class="span4" name="name" value="${param.name}"></input>
+				<label class="control-label"><h4>Description</h4></label> <textarea class="span4" name="description" rows="5">${param.description}</textarea>
+				<label class="control-label"><h4>Category</h4></label> <select name="category"><c:forEach var="category" items="${categories}"><option>${category}</option></c:forEach></select>
 				<label class="control-label"><h4>Ships From</h4></label> <select name="shipsFrom"><c:forEach var="location" items="${locations}"><option>${location}</option></c:forEach></select>
 				<label class="control-label"><h4>Ships To</h4></label> <select name="shipsTo"><c:forEach var="location" items="${locations}"><option>${location}</option></c:forEach></select>
-				<label class="control-label"><h4>Minimum Bid</h4></label> <input type="text" class="input-mini" name="minBid" placeholder="$1.00"></input>
+				<label class="control-label"><h4>Minimum Bid</h4></label> <div class="input-prepend"><span class="add-on">$</span><input type="text" class="input-mini" name="minBid" placeholder="1.00" value="${param.minBid}"></input></div>
 				<label class="control-label"><h4>End Date</h4></label> <select class="input-mini" name="day"><c:forEach var="day" begin="1" end="31"><option>${day}</option></c:forEach></select> 
 																	   <select class="input-mini" name=month><c:forEach var="mon" begin="1" end="12"><option>${mon}</option></c:forEach></select>
 																	   <select class="input-small" name="year"><c:forEach var="year" begin="2012" end="2015"><option>${year}</option></c:forEach></select>
-				<label class="control-label"><h4>Description</h4></label> <textarea class="span4" name="description" rows="5"></textarea>
-				<label class="control-label"><h4>Photo</h4></label> 
+				<label class="control-label"><h4>Image</h4></label> <input type="file" name="image">
 				</div>
+			<input type="hidden" name="blah" value="another"></input>
 			<button class="btn btn-primary">Submit</button>
 		</form>
 

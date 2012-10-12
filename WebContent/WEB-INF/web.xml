@@ -127,6 +127,16 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>NewAuction</servlet-name>
-    <url-pattern>/NewAuction</url-pattern>
+    <url-pattern>/newAuction</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>MakeAuction</display-name>
+    <servlet-name>MakeAuction</servlet-name>
+    <servlet-class>main.MakeAuction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MakeAuction</servlet-name>
+    <url-pattern>/makeAuction</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -4,6 +4,7 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.Date;
 
 import main.Hash;
 
@@ -15,8 +16,8 @@ public class Database {
 	
 	//Constants
 	private final static int timeout = 30;
-	//private final static String dbPath = "D:/auction";
-	private final static String dbPath = "/Users/mac/Documents/workspace/4920-Project/WebContent/database/newAuction";
+	private final static String dbPath = "D:/auction";
+	//private final static String dbPath = "/Users/mac/Documents/workspace/4920-Project/WebContent/database/newAuction";
 	private final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public Database() throws Exception {
@@ -394,6 +395,67 @@ public class Database {
 		return user;
 	}
 	
+	public int getLocationIndex(String location) throws Exception {
+		
+		int index = 0;
+		
+		//Construct query
+		String query = "SELECT id " +
+					   "FROM locations " +
+				       "WHERE name = ?";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setString(1, location);
+		statement.setQueryTimeout(timeout);
+		ResultSet rs = statement.executeQuery();
+		
+		while (rs.next()) {
+			index = rs.getInt("id");
+		}
+		rs.close();
+		
+		return index;
+	}
+	
+	public List<String> getLocations() throws Exception {
+		
+		List<String> locations = new ArrayList<String>();
+		
+		//Construct query
+		String query = "SELECT name " +
+					   "FROM locations";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setQueryTimeout(timeout);
+		ResultSet rs = statement.executeQuery();
+		
+		//put locations into list
+		while (rs.next()) {
+			locations.add(rs.getString("name"));
+		}
+		rs.close();
+		
+		return locations;
+	}
+	
+	public List<String> getCategories() throws Exception {
+		
+		Set<String> categories = new HashSet<String>();
+		
+		//Construct query
+		String query = "SELECT category " +
+					   "FROM item";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setQueryTimeout(timeout);
+		ResultSet rs = statement.executeQuery();
+		
+		//put locations into list
+		while (rs.next()) {
+			categories.add(rs.getString("category"));
+		}
+		rs.close();
+		
+		return Arrays.asList(categories.toArray(new String[0]));
+	}
+	
 	public void updateItemBids(int id, int firstBid, int firstBidUserId,
 							   int secondBid, int secondBidUserId) throws Exception {
 		
@@ -547,5 +609,40 @@ public class Database {
 		
 	}
 	
-	
+	public int createNewAuction(String name, int minBid, int startLocation, 
+			 int shipsTo, String category, Date startDate, 
+			 Date endDate, int owner) throws Exception {
+
+		//Construct insert
+		String insert = "INSERT INTO item " +
+			"(description, startLocation, shipsTo, category, " +
+			"startDate, endDate, owner, minBid, firstBid, " +
+			"firstBidUser, secondBid, secondBidUser) " +
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement statement = connection.prepareStatement(insert);
+		statement.setString(1, name);
+		statement.setInt(2, startLocation);
+		statement.setInt(3, shipsTo);
+		statement.setString(4, category);
+		statement.setString(5, df.format(startDate));
+		statement.setString(6, df.format(endDate));
+		statement.setInt(7, owner);
+		statement.setInt(8, minBid);
+		statement.setNull(9, java.sql.Types.INTEGER);
+		statement.setNull(10, java.sql.Types.VARCHAR);
+		statement.setNull(11, java.sql.Types.INTEGER);
+		statement.setNull(12, java.sql.Types.VARCHAR);
+		statement.setQueryTimeout(timeout);
+		
+		//execute insert
+		statement.executeUpdate();
+		
+		//get id of inserted item
+		Statement st = connection.createStatement();
+		st.setQueryTimeout(timeout);
+		ResultSet rs = st.executeQuery("SELECT last_insert_rowid() FROM item");
+		
+		System.out.println(rs.getMetaData().getColumnName(1));
+		return rs.getInt("last_insert_rowid()");
+	}
 }

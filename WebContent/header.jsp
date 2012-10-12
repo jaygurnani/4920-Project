@@ -69,6 +69,7 @@
 	            	<li><a tabindex = "-1" href="category?cat=Phones">Phones</a></li>
 	            </ul>
 	          </li>
+	          <c:if test="${loggedIn}"><li><a href="newAuction">Create New Auction</a></li></c:if>
               	
             </ul>
                       
