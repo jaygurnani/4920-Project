@@ -11,7 +11,8 @@ create table item (
 	secondBid		integer,
 	firstBidUser	INTEGER REFERENCES user(id),
 	secondBidUser	INTEGER REFERENCES user(id),
-	minBid 			INTEGER
+	minBid 			INTEGER,
+	finished		BOOLEAN
 );
 
 create table user (
