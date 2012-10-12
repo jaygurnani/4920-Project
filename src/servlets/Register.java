@@ -31,7 +31,13 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("Command Interface working");
+		String username = (String) request.getAttribute("username");
+		String password = (String) request.getAttribute("password");
+		String payPal = (String) request.getAttribute("paypal");
+		String email = (String) request.getAttribute("email");
+		
+		
+		
 		response.sendRedirect("completedRegister.jsp");
 		return;
 	}
