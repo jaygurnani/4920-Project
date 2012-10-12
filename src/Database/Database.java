@@ -509,4 +509,9 @@ public class Database {
 		return valid;
 	}
 
+	public int countUsers() throws Exception {
+		
+		//To be implemented
+		return 0;
+	}
 }
