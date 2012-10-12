@@ -79,7 +79,7 @@
     <servlet-name>PayPalTest</servlet-name>
     <url-pattern>/PayPalTest</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <description></description>
     <display-name>Login</display-name>
     <servlet-name>Login</servlet-name>
@@ -98,5 +98,15 @@
   <servlet-mapping>
     <servlet-name>ShowUser</servlet-name>
     <url-pattern>/showUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowFinishedAuction</display-name>
+    <servlet-name>ShowFinishedAuction</servlet-name>
+    <servlet-class>main.ShowFinishedAuction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowFinishedAuction</servlet-name>
+    <url-pattern>/finished</url-pattern>
   </servlet-mapping>
 </web-app>

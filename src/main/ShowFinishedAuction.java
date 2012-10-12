@@ -1,6 +1,7 @@
 package main;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -15,7 +16,7 @@ import Database.User;
 /**
  * Servlet implementation class PayPalTest
  */
-public class PayPalTest extends HttpServlet {
+public class ShowFinishedAuction extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -26,11 +27,23 @@ public class PayPalTest extends HttpServlet {
 		
 		Database db = null;
 		int id = 0;
+		Boolean loggedIn;
+		String userName;
+		
+		//fail if not logged in
+		loggedIn = (Boolean)request.getSession().getAttribute("loggedIn");
+		if (loggedIn == null || loggedIn == false) {
+			request.setAttribute("notLoggedIn", true);
+			RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
+			view.forward(request, response);
+			return;
+		}
+		userName = (String)request.getSession().getAttribute("userName");
 		
 		//check and get Parameters
 		if (!request.getParameterMap().containsKey("id")) {
 			request.setAttribute("item", null);
-			RequestDispatcher view = request.getRequestDispatcher("payPal.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
 			view.forward(request, response);
 			return;
 		}
@@ -38,7 +51,7 @@ public class PayPalTest extends HttpServlet {
 			id = Integer.valueOf(request.getParameter("id"));
 		} catch (NumberFormatException e) {
 			request.setAttribute("item", null);
-			RequestDispatcher view = request.getRequestDispatcher("payPal.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
 			view.forward(request, response);
 			return;
 		}
@@ -48,13 +61,29 @@ public class PayPalTest extends HttpServlet {
 			db = new Database();
 			Item item = db.getItemById(id);
 			
+			//fail if auction hasn't ended
+			if (!item.getEndDate().after(new Date())) {
+				request.setAttribute("notFinished", true);
+				RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
+				view.forward(request, response);
+				return;
+			}
+			
+			//fail if user isn't the winner
+			if (!item.getFirstBidUserName().equals(userName)) {
+				request.setAttribute("wrongUser", true);
+				RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
+				view.forward(request, response);
+				return;
+			}
+			
 			//get seller from database
 			User seller = db.getUserById(item.getOwnerId());
 			
-			//pass item and seller to paypal test page
+			//pass item and seller to display page
 			request.setAttribute("item", item);
 			request.setAttribute("seller", seller);
-			RequestDispatcher view = request.getRequestDispatcher("payPal.jsp");
+			RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
 			view.forward(request, response);
 		} catch (Exception e) {
 			System.out.println(e);

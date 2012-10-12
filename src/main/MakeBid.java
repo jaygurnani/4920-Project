@@ -23,11 +23,12 @@ public class MakeBid extends HttpServlet {
 		String bidString;
 		int bid;
 		int userId = 0;
+		Boolean loggedIn;
 		String userName;
 
 		//fail if not logged in
-		Boolean loggedIn = (Boolean)request.getSession().getAttribute("loggedIn");
-		if (!loggedIn) {
+		loggedIn = (Boolean)request.getSession().getAttribute("loggedIn");
+		if (loggedIn == null || loggedIn == false) {
 			response.sendRedirect("display?id="+request.getParameter("id")+"&err=0");
 			return;
 		}
