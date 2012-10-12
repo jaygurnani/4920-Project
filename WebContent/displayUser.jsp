@@ -22,7 +22,7 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="page-header">
-				<h1>${user.name}</h1>
+				<h1>${User.name}</h1>
 				<small>User Details.</small>
 			</div>
 			<c:choose>

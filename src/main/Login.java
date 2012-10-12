@@ -57,8 +57,16 @@ public class Login extends HttpServlet {
 			 request.getSession().setAttribute("loggedIn", authenticated);
 			 
 			 if(authenticated){
+				 db = new Database();
+				 User toEnter = db.getUserByName(username);
+				 
 				request.getSession().setAttribute("userName", username);
+<<<<<<< HEAD
 				//Store ID as well?
+=======
+				request.getSession().setAttribute("userId", toEnter.getId());
+			 }
+>>>>>>> Fixed username issue
 				
 				//redirect to referrer
 				response.sendRedirect(referer);
