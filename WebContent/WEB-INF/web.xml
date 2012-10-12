@@ -119,4 +119,14 @@
     <servlet-name>Logout</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>NewAuction</display-name>
+    <servlet-name>NewAuction</servlet-name>
+    <servlet-class>main.NewAuction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>NewAuction</servlet-name>
+    <url-pattern>/NewAuction</url-pattern>
+  </servlet-mapping>
 </web-app>

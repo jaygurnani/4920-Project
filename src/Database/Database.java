@@ -13,7 +13,8 @@ public class Database {
 	
 	//Constants
 	private final static int timeout = 30;
-	private final static String dbPath = "/Users/mac/Documents/workspace/4920-Project/WebContent/database/newAuction";
+	private final static String dbPath = "D:/auction";
+	//private final static String dbPath = "/Users/mac/Documents/workspace/4920-Project/WebContent/database/newAuction";
 	private final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public Database() throws Exception {
