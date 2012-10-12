@@ -61,14 +61,10 @@ public class Login extends HttpServlet {
 				 User toEnter = db.getUserByName(username);
 				 
 				request.getSession().setAttribute("userName", username);
-<<<<<<< HEAD
-				//Store ID as well?
-=======
+
 				request.getSession().setAttribute("userId", toEnter.getId());
-			 }
->>>>>>> Fixed username issue
+
 				
-				//redirect to referrer
 				response.sendRedirect(referer);
 			 } else {		    
 				//display unsuccessful login page
