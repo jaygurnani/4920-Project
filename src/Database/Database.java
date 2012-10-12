@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
+import main.Hash;
+
 
 public class Database {
 	
@@ -13,8 +15,8 @@ public class Database {
 	
 	//Constants
 	private final static int timeout = 30;
-	private final static String dbPath = "D:/auction";
-	//private final static String dbPath = "/Users/mac/Documents/workspace/4920-Project/WebContent/database/newAuction";
+	//private final static String dbPath = "D:/auction";
+	private final static String dbPath = "/Users/mac/Documents/workspace/4920-Project/WebContent/database/newAuction";
 	private final static DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 	
 	public Database() throws Exception {
@@ -511,8 +513,39 @@ public class Database {
 	}
 
 	public int countUsers() throws Exception {
+		int count = 0;
 		
-		//To be implemented
-		return 0;
+		String query = "SELECT id FROM user";
+		PreparedStatement statement = connection.prepareStatement(query);
+		
+		statement.setQueryTimeout(timeout);
+		ResultSet rs = statement.executeQuery();
+		
+		while (rs.next()){
+			count++;
+		}
+		rs.close();
+		
+		return count;
 	}
+
+	public void createNewUser(int count, String username, String password,
+			String payPal, String email, String birthday, String address,
+			String about) throws Exception {
+		
+		//Hash the password first
+		Hash hs = new Hash();
+		String hsEnter = hs.calculate(password);
+		
+		Statement statement = connection.createStatement();
+		statement.executeUpdate("INSERT INTO user VALUES("+ count + ",\"" + username + "\",\"" + hsEnter +"\"," + count +  ")");
+		statement.executeUpdate("INSERT INTO details VALUES("+ count+ ",\"" + birthday + "\",\"" + address +"\"," + 0 + "," + 0 + ",\"" + payPal + "\",\"" + email +"\",\"" + about + "\")"); 
+		
+		//INSERT INTO "user" VALUES(1,"Jay Gurnani", "abc123", null);
+		//INSERT INTO "details" VALUES (1,  "1991-01-01", "101 George St, Sydney, NSW, 2000", 5, 100, "jay_1349952995_biz@parafox.net",    "jay.gurnani@gmail.com",    "I love Fire&Ice!");
+
+		
+	}
+	
+	
 }

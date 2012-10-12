@@ -3,10 +3,13 @@ package servlets;
 import java.io.IOException;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import Database.Database;
 
 /**
  * Servlet implementation class Register
@@ -33,17 +36,36 @@ public class Register extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String username = (String) request.getAttribute("username");
-		String password = (String) request.getAttribute("password");
-		String payPal = (String) request.getAttribute("paypal");
-		String email = (String) request.getAttribute("email");
-		String birthday = (String) request.getAttribute("birthday");
-		String address = (String) request.getAttribute("address");
-		String about = (String) request.getAttribute("about");
-
+		Database db = null;
+		int count = 0;
 		
-		response.sendRedirect("completedRegister.jsp");
-		return;
+		String username = (String) request.getParameter("username");
+		String password = (String) request.getParameter("password");
+		String paypal = (String) request.getParameter("paypalAcct");
+		String email = (String) request.getParameter("emailAddress");
+		String birthday = (String) request.getParameter("birthdayDate");
+		String address = (String) request.getParameter("address");
+		String about = (String) request.getParameter("about");
+		
+		try {
+			db = new Database();
+			count = db.countUsers();
+			//Shift count by one more for new User;
+			count++;
+			db.createNewUser(count,username,password,paypal,email,birthday,address,about);
+			response.sendRedirect("index.jsp");
+			
+		} catch (Exception e) {
+			System.out.println("Database error : " + e);
+			RequestDispatcher view = request.getRequestDispatcher("dbError.jsp");
+			view.forward(request, response);
+			
+		} finally {
+			if (db != null) {
+				db.close();
+			}
+		}
+		
 	}
 
 }

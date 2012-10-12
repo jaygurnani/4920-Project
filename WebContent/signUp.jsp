@@ -60,10 +60,10 @@
 			<form id="register" action="Controller" method="post">
 			<div class="control-group">
 				<label class="control-label"><h4>Username</h4></label> <input type="text" class="span4" name="username" placeholder="Username"></input>
-				<label class="control-label"><h4>Email Address</h4></label> <input type="text" class="span4" name="emailaddress" value=""></input>
-				<label class="control-label"><h4>Address</h4></label> <input type="text" class="span4" name="address" value=""></input>
-				<label class="control-label"><h4>PayPal Account Number</h4></label> <input type="text" class="span4" name="paypal" value=""></input>
-				<label class="control-label"><h4>Birth Date</h4></label><input type="date" class="span4" name="birthyear" value=""></input> 
+				<label class="control-label"><h4>Email Address</h4></label> <input type="text" class="span4" name="emailAddress"></input>
+				<label class="control-label"><h4>Address</h4></label> <input type="text" class="span4" name="address"></input>
+				<label class="control-label"><h4>PayPal Account</h4></label> <input type="text" class="span4" name="paypalAcct"></input>
+				<label class="control-label"><h4>Birthday</h4></label> <input type="date" class="span4" name="birthdayDate"></input> 
 				<label class="control-label"><h4>About you<br></label><textarea class="span4" rows="4"placeholder="About you" name="about"></textarea>				
 				<label class="control-label"><h4>Password</h4></label> <input type="password" class="span4" name="password"></input>
 				<label class="control-label"><h4>Confirm Password</h4></label> <input type="password" class="span4" name="confirmpassword" id="confirmpassword"></input>
