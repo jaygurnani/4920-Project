@@ -1,6 +1,8 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.Date;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,8 +37,10 @@ public class Register extends HttpServlet {
 		String password = (String) request.getAttribute("password");
 		String payPal = (String) request.getAttribute("paypal");
 		String email = (String) request.getAttribute("email");
-		
-		
+		String birthday = (String) request.getAttribute("birthday");
+		String address = (String) request.getAttribute("address");
+		String about = (String) request.getAttribute("about");
+
 		
 		response.sendRedirect("completedRegister.jsp");
 		return;
