@@ -65,7 +65,8 @@
 	            	<li><a tabindex = "-1" href="category?cat=Music">Music</a></li>
 	            	<li><a tabindex = "-1" href="category?cat=Cameras">Cameras</a></li>
 	            	<li><a tabindex = "-1" href="category?cat=Fiction Books">Fiction Books</a></li>
-	            	<li><a tabindex = "-1" href="category?cat=Insturments">Insturments</a></li>
+	            	<li><a tabindex = "-1" href="category?cat=Instruments">Instruments</a></li>
+	            	<li><a tabindex = "-1" href="category?cat=Phones">Phones</a></li>
 	            </ul>
 	          </li>
               	

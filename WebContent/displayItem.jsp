@@ -56,7 +56,7 @@
 					<th>Image</th>
 					<th>Details</th>
 				<tr>
-					<td><img src="img/missing.png" class=img-rounded"></td>
+					<td><img src="img/database/${item.id}.jpg" class=img-rounded"></td>
 					<td>
 						<table class=table-hover>
 							<tbody>
