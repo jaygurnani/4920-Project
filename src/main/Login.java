@@ -33,6 +33,8 @@ public class Login extends HttpServlet {
 		
 		boolean authenticated = false;
 		
+		Hash h = new Hash();
+		
 		try {
 			//get items from database
 			db = new Database();
@@ -40,7 +42,7 @@ public class Login extends HttpServlet {
 			 if(request.getParameter("username") != null && request.getParameter("password") != null){
 				 username = request.getParameter("username");
 				 
-				 password = request.getParameter("password");
+				 password = h.calculate(request.getParameter("password"));
 			 }
 			 
 			 authenticated = db.checkLogin(username, password);
