@@ -35,6 +35,14 @@ public class Login extends HttpServlet {
 		
 		Hash h = new Hash();
 		
+		String referer;
+		
+		//set referer
+		referer = request.getParameter("ref");
+		if (referer == null || referer.equals("")) {
+			referer = request.getHeader("referer");
+		}
+		
 		try {
 			//get items from database
 			db = new Database();
@@ -47,15 +55,19 @@ public class Login extends HttpServlet {
 			 
 			 authenticated = db.checkLogin(username, password);
 			 request.getSession().setAttribute("loggedIn", authenticated);
+			 
 			 if(authenticated){
 				request.getSession().setAttribute("userName", username);
 				//Store ID as well?
-			 }
 				
-		    
-			RequestDispatcher view = request.getRequestDispatcher("login.jsp");
-			view.forward(request, response);
-
+				//redirect to referrer
+				response.sendRedirect(referer);
+			 } else {		    
+				//display unsuccessful login page
+				request.setAttribute("referer", referer);
+				RequestDispatcher view = request.getRequestDispatcher("login.jsp");
+				view.forward(request, response);
+			 }
 		} catch (Exception e) {
 			System.out.println("Database error : " + e);
 		} finally {

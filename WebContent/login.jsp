@@ -41,6 +41,7 @@
 		<input type="password" name="password" id="edit-pass" maxlength="128" size="60" tabindex="2" class="form-text required">
 		</div>
 		</div></fieldset>
+		<input type="hidden" name="ref" value="${referer}"> <%-- Page referer for redirection --%>
 		<input type="submit" name="op" id="edit-submit" value="Log in" tabindex="3" class="form-submit">
 		<div class="description">New to [THIS_WEB_SITE]? <a href="signUp.jsp" class="ext" target="_blank">Sign up</a><span class="ext"></span></div>
 		</form>
