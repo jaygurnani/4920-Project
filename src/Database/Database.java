@@ -645,4 +645,61 @@ public class Database {
 		System.out.println(rs.getMetaData().getColumnName(1));
 		return rs.getInt("last_insert_rowid()");
 	}
+	
+	public Queue<TreeMap<String,Object> > endedItems() throws Exception 
+	{
+		Queue<TreeMap<String,Object> > items = new LinkedList<TreeMap<String,Object> >();
+
+		String q = "select * from item where id == 1";
+		PreparedStatement qstatement = connection.prepareStatement(q);
+		qstatement.setQueryTimeout(30);
+    	ResultSet qrs = qstatement.executeQuery();
+		qrs.close();
+    	
+    	
+		String query = 
+				"SELECT item.id             AS id, " +
+				"       item.description    AS description, " +
+				"       item.enddate        AS endDate, " +
+				"       item.owner          AS owner, " +
+				"       sellerDetails.email AS ownerEmail, " +
+				"       item.firstbiduser   AS winner, " +
+				"       winnerDetails.email AS winnerEmail, " +
+				"       item.firstbid       AS firstBid, " +
+				"       item.secondbid      AS secondBid " +
+				"FROM   item " +
+				"       LEFT OUTER JOIN details sellerDetails ON ( item.owner = sellerDetails.id ) " +
+				"       LEFT OUTER JOIN details winnerDetails ON ( item.firstbiduser = winnerDetails.id ) " +
+				"WHERE  Date(item.enddate) < Date('now') " +
+				"       AND finished==\"false\";";
+				
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setQueryTimeout(30);
+    	ResultSet rs = statement.executeQuery();
+    	while (rs.next()) 
+    	{
+    		TreeMap<String,Object> map = new TreeMap<String,Object>();
+    		map.put("id", rs.getInt("id"));
+    		map.put("description", rs.getString("description"));
+    		map.put("endDate", "" + df.parse(rs.getString("endDate")));
+    		map.put("owner", rs.getInt("owner"));
+    		map.put("ownerEmail", rs.getString("ownerEmail"));
+    		map.put("winner", rs.getInt("winner"));
+    		map.put("winnerEmail", rs.getString("winnerEmail"));
+    		map.put("firstbid", rs.getInt("firstbid"));
+    		map.put("secondbid", rs.getInt("secondbid"));   
+    		items.add(map);
+    	}
+    	
+    	rs.close();
+    	return items;
+	}
+	
+	public void closeAuction(int id) throws SQLException
+	{
+		String query = "UPDATE item set finished=\"true\" where id==" + id + ";";
+		PreparedStatement statement = connection.prepareStatement(query);
+		statement.setQueryTimeout(30);
+		statement.executeUpdate();
+	}
 }

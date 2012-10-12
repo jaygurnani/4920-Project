@@ -1,7 +1,9 @@
 1. First setup project to these steps: http://mahler.cse.unsw.edu.au/webcms2/course/index.php?cid=2272
 2. Import this git into your eclipse as existing project
 3. Change your build from Java OSX to your native Java Library
-4. Run index.jsp on your TomCat server
+4. Make sure the JavaMail API is on the build path
+5. Run DaemonStarter.java as a Java application if you want bid handling to occur. Kill it when you bring the server down.
+6. Run index.jsp on your TomCat server
 
 
 Note: passwords are now hashed, changing passwords has not been implemented yet, to reset to a blank password, the hash is

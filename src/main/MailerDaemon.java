@@ -14,7 +14,7 @@ import javax.mail.internet.*;
 /**
  * A deamon process that sends emails placed into its queue.
  * Note that this is a daemon thread which will close when all other threads end.
- * This means any emails in the queue will lost. TODO fix tgat
+ * This means any emails in the queue will lost. TODO fix that.
  */
 public class MailerDaemon extends Thread
 {	
@@ -24,15 +24,20 @@ public class MailerDaemon extends Thread
 	private static final	String 			host 			= "smtp.gmail.com";
 	
 	/**
-	 * Our gmail account
+	 * Our gmail account.
 	 */
 	private static final	String			 from 			= "4920.fire.ice"; 
 	
 	/**
-	 * The password for the account
+	 * The password for the account.
 	 */
 	private static final	String 			password 		= "pwFireIce";
 	
+	/**
+	 * Daemon poll rate.
+	 */
+	
+	private static 			long			pollRate		= 1000;
 	/**
 	 * Logger for class
 	 */
@@ -42,8 +47,8 @@ public class MailerDaemon extends Thread
 	{
 		try 
 		{
-			logger.setLevel(Level.ALL);  
-			File file = new File("MailerDaemon.log");
+			logger.setLevel(Level.INFO);  
+			File file = new File(MailerDaemon.class.getName() + ".log");
 			file.createNewFile();
 			FileHandler handler = new FileHandler(file.getAbsolutePath(),true);
 			
@@ -75,7 +80,6 @@ public class MailerDaemon extends Thread
 		properties.put("mail.smtp.password", "pwFireIce");
 		properties.put("mail.smtp.port", "587"); 
 		properties.put("mail.smtp.auth", "true");
-
 	}
 	
 	/**
@@ -113,12 +117,12 @@ public class MailerDaemon extends Thread
 		boolean ret = true;
 		try
 		{
-			logger.log(Level.INFO, "Taking semaphore.");
+			logger.log(Level.FINE, "Taking semaphore.");
 			queueSem.acquire();
-			logger.log(Level.INFO, "Acquired semaphore.");
-			logger.log(Level.INFO, "Adding email :\"" + email.subject + "\"");
+			logger.log(Level.FINE, "Acquired semaphore.");
+			logger.log(Level.FINE, "Adding email :\"" + email.subject + "\"");
 			toSend.add(email);
-			logger.log(Level.INFO, "Releasing semaphore.");
+			logger.log(Level.FINE, "Releasing semaphore.");
 			queueSem.release();
 		}
 		catch(Exception e)
@@ -142,7 +146,7 @@ public class MailerDaemon extends Thread
 			{
 				if(toSend.size() != 0)
 				{
-					logger.log(Level.INFO, "Taking semaphore.");
+					logger.log(Level.FINE, "Taking semaphore.");
 					boolean failed = false;
 					try 
 					{
@@ -156,8 +160,11 @@ public class MailerDaemon extends Thread
 					if(!failed)
 					{
 						Email email = toSend.poll();
-						logger.log(Level.INFO, "Got email :\"" + email.subject + "\"");
-						logger.log(Level.INFO, "Releasing semaphore.");
+						logger.log(Level.INFO, "Got email");
+						logger.log(Level.INFO, "TO:      [" + email.to + "]");
+						logger.log(Level.INFO, "SUBJECT: [" + email.subject + "]");
+						
+						logger.log(Level.FINE, "Releasing semaphore.");
 						queueSem.release();
 						
 						logger.log(Level.INFO, "Compiling email.");
@@ -207,7 +214,7 @@ public class MailerDaemon extends Thread
 				}
 				//sleep if no more emails
 				else
-					Thread.sleep(1000);
+					Thread.sleep(pollRate);
 			}
 			catch(Exception e)
 			{
@@ -215,12 +222,19 @@ public class MailerDaemon extends Thread
 			}
 		}
 	}
+	
 	/**
-	 * Start the daemon
+	 * Start the daemon. Use this instead of start() or run().
+	 * Multiple calls when the daemon is alive will simply return the
+	 * same thread and update the poll rate.
+	 * @param pollRate
+	 * The period of time that the daemon will wait between each poll.
 	 * @return
+	 * The daemon thread.
 	 */
-	public static Thread makeDaemon()
+	public static Thread makeDaemon(long pollRate)
 	{
+		MailerDaemon.pollRate = pollRate;
 		if(daemon != null && daemon.isAlive())
 			return daemon;
 		
