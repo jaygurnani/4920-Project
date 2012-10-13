@@ -139,4 +139,14 @@
     <servlet-name>MakeAuction</servlet-name>
     <url-pattern>/makeAuction</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DeleteAuction</display-name>
+    <servlet-name>DeleteAuction</servlet-name>
+    <servlet-class>main.DeleteAuction</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DeleteAuction</servlet-name>
+    <url-pattern>/delete</url-pattern>
+  </servlet-mapping>
 </web-app>

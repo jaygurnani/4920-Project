@@ -1,6 +1,8 @@
 package main;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -26,6 +28,15 @@ public class Display extends HttpServlet {
 		
 		Database db = null;
 		int id = 0;
+		Boolean loggedIn;
+		String userName;
+		
+		//check if logged in
+		loggedIn = (Boolean)request.getSession().getAttribute("loggedIn");
+		if (loggedIn == null) {
+			loggedIn = false;
+		}
+		userName = (String)request.getSession().getAttribute("userName");
 		
 		//check and get Parameters
 		if (!request.getParameterMap().containsKey("id")) {
@@ -60,10 +71,24 @@ public class Display extends HttpServlet {
 			request.setAttribute("successfulBid", request.getParameter("bid"));
 		}
 		
+		//Check existence of image
+		URL imgUrl = getServletContext().getResource("/img/database/"+id+".jpg");
+		if (imgUrl != null) {
+			request.setAttribute("img", "img/database/"+id+".jpg");
+		} else {
+			request.setAttribute("img", "img/missing.png");
+		}
+		
+		
 		try {
 			//get item from database
 			db = new Database();
 			Item item = db.getItemById(id);
+			
+			//check if user is the owner of the auction
+			if (loggedIn && item.getOwnerName().equals(userName)) {
+				request.setAttribute("isOwner", true);
+			}
 			
 			//pass item to display page
 			request.setAttribute("item", item);

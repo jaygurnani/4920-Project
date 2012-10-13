@@ -33,6 +33,11 @@
 					<h4>Error:</h4> No such item.
 				</div>
 			</c:when>
+			<c:when test="${item.finished}">
+				<div class="alert alert-error">
+					<h4>Error:</h4> This Auction has finished.
+				</div>
+			</c:when>
 			<c:otherwise>
 				
 				<%-- Display Errors/Successful bid messages --%>
@@ -56,7 +61,7 @@
 					<th>Image</th>
 					<th>Details</th>
 				<tr>
-					<td><img src="img/database/${item.id}.jpg" class=img-rounded"></td>
+					<td><img src="${img}" class="img-rounded"></td>
 					<td>
 						<table class=table-hover>
 							<tbody>
@@ -73,11 +78,14 @@
 											<input type="hidden" name="id" value="${param.id}">
 											<div class="input-prepend input-append span2" style="margin-bottom:0px;">
 												<span class="add-on">$</span>
-												<input class="span3" type="text" name="bid" placeholder="${item.minBidString}"  <c:if test="${!loggedIn}">disabled</c:if>>
-												<button class="btn" type="submit"  <c:if test="${!loggedIn}">disabled</c:if>>Bid!</button>
+												<input class="span3" type="text" name="bid" placeholder="${item.minBidString}"  <c:if test="${!loggedIn || isOwner}">disabled</c:if>>
+												<button class="btn" type="submit"  <c:if test="${!loggedIn || isOwner}">disabled</c:if>>Bid!</button>
 											</div>
 										</form>
 										<c:choose>
+										<c:when test="${isOwner}">
+											<small>You cannot bid on your own auction.</small>
+										</c:when>
 										<c:when test="${loggedIn}">
 											<small>(Minimum Bid $${item.minBidString})</small>
 										</c:when>
@@ -87,6 +95,9 @@
 										</c:choose>
 									</td>
 								</tr>
+								<c:if test="${isOwner}">
+								<tr><td>Delete:</td><td><a class="btn btn-danger" href="delete?id=${item.id}">Delete Auction</a><br><small>Warning: Auction deletion cannot be undone!</small></td></tr>
+								</c:if>
 							</tbody>
 						</table>
 					</td>

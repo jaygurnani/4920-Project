@@ -59,7 +59,7 @@
 			
 			<c:if test="${!empty error}">
 					<div class="alert alert-error">
-						<h4>Sorry!</h4>
+						<h4>Error!</h4>
 						${error}
 					</div>
 				</c:if>

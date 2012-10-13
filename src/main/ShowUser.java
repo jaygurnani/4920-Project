@@ -28,20 +28,29 @@ public class ShowUser extends HttpServlet {
 		
 		Database db = null;
 		int id = 0;
+		String show;
+		Boolean loggedIn;
+		String userName;
+		
+		//check if logged in
+		loggedIn = (Boolean)request.getSession().getAttribute("loggedIn");
+		if (loggedIn == null) {
+			loggedIn = false;
+		}
+		userName = (String)request.getSession().getAttribute("userName");
 		
 		//check and get Parameters
 		if (!request.getParameterMap().containsKey("id")) {
-			System.out.println("no id");
 			request.setAttribute("user", null);
 			RequestDispatcher view = request.getRequestDispatcher("displayUser.jsp");
 			view.forward(request, response);
 			return;
 		}
+		show = request.getParameter("show");
 		//if id isn't a number, don't look up
 		try {
 			id = Integer.valueOf(request.getParameter("id"));
 		} catch (NumberFormatException e) {
-			System.out.println("INvalid id");
 			request.setAttribute("user", null);
 			RequestDispatcher view = request.getRequestDispatcher("displayUser.jsp");
 			view.forward(request, response);
@@ -52,7 +61,21 @@ public class ShowUser extends HttpServlet {
 			//get user and items from database
 			db = new Database();
 			User user = db.getUserById(id);
-			List<Item> items = db.getItemsBySeller(user.getId());
+			List<Item> items;
+			
+			//check if user is logged in user and supply appropriate items
+			if (loggedIn && user.getName().equals(userName)) {
+				request.setAttribute("isUser", true);
+				if (show != null && show.equals("1")) {
+					request.setAttribute("showSelling", true);
+					items = db.getItemsBySeller(user.getId());
+				} else {
+					request.setAttribute("showWon", true);
+					items = db.getItemsByWinner(user.getId());
+				}
+			} else {
+				items = db.getItemsBySeller(user.getId());
+			}
 			
 			//pass user and items to display page
 			request.setAttribute("user", user);

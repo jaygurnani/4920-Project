@@ -84,7 +84,7 @@
 					<c:forEach var="item" items="${itemList}">
 						<tr>
 							<td><a href="display?id=${item.id}">${item.description}</a></td>
-							<td>${item.category}</td>
+							<td><a href="category?cat=${item.category}">${item.category}</a></td>
 							<td>${item.startLocation}</td>
 							<td>${item.endsIn}</td>
 							<td><a href="showUser?id=${item.ownerId}">${item.ownerName}</a></td>
