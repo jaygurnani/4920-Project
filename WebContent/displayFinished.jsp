@@ -61,12 +61,18 @@
 						<input type="hidden" name="item_name" value="${item.description}">
 						<input type="hidden" name="amount" value="${item.winBidString}">
 						<input type="hidden" name="currency_code" value="AUD">
-						<%-- Testing return urls --%>
-						<input type="hidden" name="returnURL" value="http://algorhyt.hm/">
-						<input type="hidden" name="cancelReturn" value="http://parafox.net/">
 						<%-- The actual button --%>
 						<button type="submit" class="btn btn-primary">Pay Now via PayPal!</button>
 					</form>
+					<c:if test="${!item.feedbackLeft}">
+						<form class="form-inline" action="rate" method="post">
+						<h5>Rate this seller:</h5>
+						<input type="hidden" name="id" value="${item.id}"></input>
+						<select name="rating"><c:forEach var="i" begin="1" end="5"><option>${i}</option></c:forEach></select>
+						<button type="submit" class="btn">Rate!</button>
+						<small>Note:You can only rate a seller once per won auction!</small>
+						</form>
+					</c:if>
 				</div>
 				
 				<%--Item Details --%>

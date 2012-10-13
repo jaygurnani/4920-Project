@@ -149,4 +149,14 @@
     <servlet-name>DeleteAuction</servlet-name>
     <url-pattern>/delete</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>RateSeller</display-name>
+    <servlet-name>RateSeller</servlet-name>
+    <servlet-class>main.RateSeller</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RateSeller</servlet-name>
+    <url-pattern>/rate</url-pattern>
+  </servlet-mapping>
 </web-app>

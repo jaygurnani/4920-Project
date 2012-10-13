@@ -55,7 +55,8 @@ public class Database {
 		               "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
 		               "bidder2.name AS secondBidUserName, " +
-		               "i.finished AS finished " +
+		               "i.finished AS finished, " +
+		               "i.feedbackLeft AS feedbackLeft " +
 					   "FROM item i " + 
 					   "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 					   "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -86,7 +87,8 @@ public class Database {
     					rs.getInt("secondBid"),
     					rs.getInt("secondBidUserId"),
     					rs.getString("secondBidUserName"),
-    					rs.getBoolean("finished")));
+    					rs.getBoolean("finished"),
+    					rs.getBoolean("feedbackLeft")));
     	}
     	rs.close();
     	
@@ -114,7 +116,8 @@ public class Database {
 	                   "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
 		               "bidder2.name AS secondBidUserName, " +
-		               "i.finished AS finished " +
+		               "i.finished AS finished, " +
+		               "i.feedbackLeft AS feedbackLeft " +
 		    		   "FROM item i " + 
 				       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 				       "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -146,7 +149,8 @@ public class Database {
    					   rs.getInt("secondBid"),
    					   rs.getInt("secondBidUserId"),
    					   rs.getString("secondBidUserName"),
-   					   rs.getBoolean("finished")));
+   					   rs.getBoolean("finished"),
+   					   rs.getBoolean("feedbackLeft")));
 		}
 		rs.close();
 		
@@ -172,7 +176,8 @@ public class Database {
                        "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
 		               "bidder2.name AS secondBidUserName, " +
-		               "i.finished AS finished " +
+		               "i.finished AS finished, " +
+		               "i.feedbackLeft AS feedbackLeft " +
 	    		       "FROM item i " + 
 	    		       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 		    	       "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -202,7 +207,8 @@ public class Database {
 		    				 rs.getInt("secondBid"),
 		    				 rs.getInt("secondBidUserId"),
 		    				 rs.getString("secondBidUserName"),
-		    				 rs.getBoolean("finished"));
+		    				 rs.getBoolean("finished"),
+		    				 rs.getBoolean("feedbackLeft"));
 		rs.close();
 
 		return item;
@@ -228,7 +234,8 @@ public class Database {
                        "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
 		               "bidder2.name AS secondBidUserName, " +
-		               "i.finished AS finished " +
+		               "i.finished AS finished, " +
+		               "i.feedbackLeft AS feedbackLeft " +
  	        	       "FROM item i " + 
  	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id) " +
 	    	           "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -259,7 +266,8 @@ public class Database {
     	    				   rs.getInt("secondBid"),
     	    				   rs.getInt("secondBidUserId"),
     	    				   rs.getString("secondBidUserName"),
-    	    				   rs.getBoolean("finished")));
+    	    				   rs.getBoolean("finished"),
+    	    				   rs.getBoolean("feedbackLeft")));
     	}
     	rs.close();
     	
@@ -286,7 +294,8 @@ public class Database {
                        "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
 		               "bidder2.name AS secondBidUserName, " +
-		               "i.finished AS finished " +
+		               "i.finished AS finished, " +
+		               "i.feedbackLeft AS feedbackLeft "+
  	        	       "FROM item i " + 
  	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id) " +
 	    	           "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -317,7 +326,8 @@ public class Database {
     	    				   rs.getInt("secondBid"),
     	    				   rs.getInt("secondBidUserId"),
     	    				   rs.getString("secondBidUserName"),
-    	    				   rs.getBoolean("finished")));
+    	    				   rs.getBoolean("finished"),
+    	    				   rs.getBoolean("feedbackLeft")));
     	}
     	rs.close();
     	
@@ -344,7 +354,8 @@ public class Database {
                        "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
 		               "bidder2.name AS secondBidUserName, " +
-		               "i.finished AS finished " +
+		               "i.finished AS finished, " +
+		               "i.feedbackLeft AS feedbackLeft " +
  	        	       "FROM item i " + 
  	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id) " +
 	    	           "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -375,7 +386,8 @@ public class Database {
     	    				   rs.getInt("secondBid"),
     	    				   rs.getInt("secondBidUserId"),
     	    				   rs.getString("secondBidUserName"),
-    	    				   rs.getBoolean("finished")));
+    	    				   rs.getBoolean("finished"),
+    	    				   rs.getBoolean("feedbackLeft")));
     	}
     	rs.close();
     	
@@ -593,6 +605,34 @@ public class Database {
 		
 		//execute update
 		statement.executeUpdate();
+	}
+	
+	public void updateRating(int itemId, int userId, int newRating, int newRatingCount) throws Exception {
+		
+		//construct user update
+		String uUpdate = "UPDATE details " +
+						 "SET rating = ?, " +
+						 "ratingCount = ? " +
+						 "WHERE id = ?";
+		PreparedStatement uStatement = connection.prepareStatement(uUpdate);
+		uStatement.setInt(1, newRating);
+		uStatement.setInt(2, newRatingCount);
+		uStatement.setInt(3, userId);
+		uStatement.setQueryTimeout(timeout);
+		
+		//execute user update
+		uStatement.executeUpdate();
+		
+		//construct item update
+		String iUpdate = "UPDATE item " +
+						 "SET feedbackLeft = 1 " +
+						 "WHERE id = ?";
+		PreparedStatement iStatement = connection.prepareStatement(iUpdate);
+		iStatement.setInt(1, itemId);
+		iStatement.setQueryTimeout(timeout);
+		
+		//execute item update
+		iStatement.executeUpdate();
 	}
 	
 	public boolean checkLogin(String username, String password) throws Exception {

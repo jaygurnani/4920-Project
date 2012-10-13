@@ -83,6 +83,7 @@ public class ShowUser extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("displayUser.jsp");
 			view.forward(request, response);
 		} catch (Exception e) {
+			System.out.println(e);
 			RequestDispatcher view = request.getRequestDispatcher("dbError.jsp");
 			view.forward(request, response);
 		} finally {
