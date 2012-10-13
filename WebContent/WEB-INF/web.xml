@@ -159,4 +159,14 @@
     <servlet-name>RateSeller</servlet-name>
     <url-pattern>/rate</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UploadImage</display-name>
+    <servlet-name>UploadImage</servlet-name>
+    <servlet-class>main.UploadImage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UploadImage</servlet-name>
+    <url-pattern>/uploadImage</url-pattern>
+  </servlet-mapping>
 </web-app>

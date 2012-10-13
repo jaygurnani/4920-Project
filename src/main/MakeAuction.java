@@ -53,7 +53,7 @@ public class MakeAuction extends HttpServlet {
 		for (Object param :request.getParameterMap().keySet()) {
 			failRedirect += param + "=" + request.getParameter((String)param) + "&";
 		}
-		
+
 		//fail if not logged in
 		loggedIn = (Boolean)request.getSession().getAttribute("loggedIn");
 		if (loggedIn == null || loggedIn == false) {
@@ -140,7 +140,7 @@ public class MakeAuction extends HttpServlet {
 			userId = db.getUserByName(userName).getId();
 			itemId = db.createNewAuction(name, minBid, shipsFromIndex, shipsToIndex, 
 					                     category, new Date(), endDate, userId);
-			response.sendRedirect("display?id="+itemId);
+			response.sendRedirect("uploadImage?id="+itemId);
 		} catch (Exception e) {
 			System.out.println("Database error: " + e);
 			RequestDispatcher view = request.getRequestDispatcher("dbError.jsp");

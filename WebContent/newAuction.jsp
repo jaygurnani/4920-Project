@@ -75,9 +75,7 @@
 				<label class="control-label"><h4>End Date</h4></label> <select class="input-mini" name="day"><c:forEach var="day" begin="1" end="31"><option>${day}</option></c:forEach></select> 
 																	   <select class="input-mini" name=month><c:forEach var="mon" begin="1" end="12"><option>${mon}</option></c:forEach></select>
 																	   <select class="input-small" name="year"><c:forEach var="year" begin="2012" end="2015"><option>${year}</option></c:forEach></select>
-				<label class="control-label"><h4>Image</h4></label> <input type="file" name="image">
 				</div>
-			<input type="hidden" name="blah" value="another"></input>
 			<button class="btn btn-primary">Submit</button>
 		</form>
 

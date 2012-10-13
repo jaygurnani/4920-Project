@@ -1,6 +1,7 @@
 package main;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -54,6 +55,14 @@ public class ShowFinishedAuction extends HttpServlet {
 			RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
 			view.forward(request, response);
 			return;
+		}
+		
+		//Check existence of image
+		URL imgUrl = getServletContext().getResource("/img/database/"+id+".jpg");
+		if (imgUrl != null) {
+			request.setAttribute("img", "img/database/"+id+".jpg");
+		} else {
+			request.setAttribute("img", "img/missing.png");
 		}
 		
 		try {

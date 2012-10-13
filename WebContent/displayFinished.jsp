@@ -81,7 +81,7 @@
 					<th>Image</th>
 					<th>Details</th>
 				<tr>
-					<td><img src="img/missing.png" class=img-rounded"></td>
+					<td><img src="${img}" width="175" height="auto" class="img-rounded"></td>
 					<td>
 						<table class=table-hover>
 							<tbody>

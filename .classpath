@@ -10,5 +10,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="extraJars/sqlite-jdbc-3.7.2.jar"/>
+	<classpathentry kind="lib" path="extraJars/commons-fileupload-1.2.2.jar"/>
+	<classpathentry kind="lib" path="extraJars/commons-io-2.4.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
