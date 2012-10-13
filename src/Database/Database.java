@@ -704,9 +704,31 @@ public class Database {
 		Hash hs = new Hash();
 		String hsEnter = hs.calculate(password);
 		
-		Statement statement = connection.createStatement();
+		String uUpdate = "INSERT INTO user VALUES(?, ?, ?, ?)";
+		PreparedStatement uStatement = connection.prepareStatement(uUpdate);
+		uStatement.setInt(1, count);
+		uStatement.setString(2, username);
+		uStatement.setString(3, hsEnter);
+		uStatement.setInt(4, count);
+		uStatement.setQueryTimeout(timeout);
+		uStatement.executeUpdate();
+		
+		String dUpdate = "INSERT INTO details VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+		PreparedStatement dStatement = connection.prepareStatement(dUpdate);
+		dStatement.setInt(1, count);
+		dStatement.setString(2, birthday);
+		dStatement.setString(3, address);
+		dStatement.setInt(4, 0);
+		dStatement.setInt(5, 0);
+		dStatement.setString(6, payPal);
+		dStatement.setString(7, email);
+		dStatement.setString(8, about);
+		dStatement.setQueryTimeout(timeout);
+		dStatement.executeUpdate();
+		
+		/*Statement statement = connection.createStatement();
 		statement.executeUpdate("INSERT INTO user VALUES("+ count + ",\"" + username + "\",\"" + hsEnter +"\"," + count +  ")");
-		statement.executeUpdate("INSERT INTO details VALUES("+ count+ ",\"" + birthday + "\",\"" + address +"\"," + 0 + "," + 0 + ",\"" + payPal + "\",\"" + email +"\",\"" + about + "\")"); 
+		statement.executeUpdate("INSERT INTO details VALUES("+ count+ ",\"" + birthday + "\",\"" + address +"\"," + 0 + "," + 0 + ",\"" + payPal + "\",\"" + email +"\",\"" + about + "\")"); */
 		
 		//INSERT INTO "user" VALUES(1,"Jay Gurnani", "abc123", null);
 		//INSERT INTO "details" VALUES (1,  "1991-01-01", "101 George St, Sydney, NSW, 2000", 5, 100, "jay_1349952995_biz@parafox.net",    "jay.gurnani@gmail.com",    "I love Fire&Ice!");
