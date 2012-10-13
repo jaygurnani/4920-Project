@@ -60,15 +60,7 @@ public class ShowFinishedAuction extends HttpServlet {
 			//get item from database
 			db = new Database();
 			Item item = db.getItemById(id);
-			
-			//fail if auction hasn't ended
-			if (!item.getEndDate().after(new Date())) {
-				request.setAttribute("notFinished", true);
-				RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
-				view.forward(request, response);
-				return;
-			}
-			
+						
 			//fail if user isn't the winner
 			if (!item.getFirstBidUserName().equals(userName)) {
 				request.setAttribute("wrongUser", true);

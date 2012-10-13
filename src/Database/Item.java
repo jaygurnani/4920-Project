@@ -26,6 +26,7 @@ public class Item implements Serializable {
 	private int secondBidUserId;
 	private int secondBid;
 	private String secondBidUserName;
+	private boolean finished;
 	
 	//set up object with empty values
 	public Item() {
@@ -36,7 +37,8 @@ public class Item implements Serializable {
 			    String shipsTo, String category, Date startDate,
 			    Date endDate, int ownerId, String ownerName, int minBid, 
 			    int firstBid, int firstBidUserId, String firstBidUserName, 
-			    int secondBid,int secondBidUserId, String secondBidUserName) {
+			    int secondBid,int secondBidUserId, String secondBidUserName,
+			    boolean finished) {
 		this.id = id;
 		this.Description = Description;
 		this.startLocation = startLocation;
@@ -53,6 +55,7 @@ public class Item implements Serializable {
 		this.secondBid = secondBid;
 		this.secondBidUserId = secondBidUserId;
 		this.secondBidUserName = secondBidUserName;
+		this.finished = finished;
 	}
 
 	//Custom field getters
@@ -238,6 +241,14 @@ public class Item implements Serializable {
 
 	public void setSecondBidUserName(String secondBidUserName) {
 		this.secondBidUserName = secondBidUserName;
+	}
+
+	public boolean isFinished() {
+		return finished;
+	}
+
+	public void setFinished(boolean finished) {
+		this.finished = finished;
 	}
 	
 }

@@ -54,14 +54,15 @@ public class Database {
 		               "bidder1.name AS firstBidUserName, " +
 		               "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
-		               "bidder2.name AS secondBidUserName " +
+		               "bidder2.name AS secondBidUserName, " +
+		               "i.finished AS finished " +
 					   "FROM item i " + 
 					   "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 					   "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
 					   "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
 					   "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
 					   "LEFT OUTER JOIN user bidder2 ON (i.secondBidUser = bidder2.id) " +
-					   "WHERE i.description LIKE ?";
+					   "WHERE (i.description LIKE ?) AND (i.finished = 0)";
 		PreparedStatement statement = connection.prepareStatement(query);
 	  	statement.setString(1, "%"+search+"%");
     	statement.setQueryTimeout(timeout);
@@ -84,7 +85,8 @@ public class Database {
     					rs.getString("firstBidUserName"),
     					rs.getInt("secondBid"),
     					rs.getInt("secondBidUserId"),
-    					rs.getString("secondBidUserName")));
+    					rs.getString("secondBidUserName"),
+    					rs.getBoolean("finished")));
     	}
     	rs.close();
     	
@@ -111,14 +113,15 @@ public class Database {
 		               "bidder1.name AS firstBidUserName, " +
 	                   "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
-		               "bidder2.name AS secondBidUserName " +
+		               "bidder2.name AS secondBidUserName, " +
+		               "i.finished AS finished " +
 		    		   "FROM item i " + 
 				       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 				       "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
 				       "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
 				       "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
 				       "LEFT OUTER JOIN user bidder2 ON (i.secondBidUser = bidder2.id) " +
-					   "WHERE i.description like ? " +
+					   "WHERE (i.description like ?) AND (i.finished = 0) " +
 					   "ORDER BY " + sortBy;
 		PreparedStatement statement = connection.prepareStatement(query);
 		statement.setString(1, "%"+search+"%");
@@ -142,7 +145,8 @@ public class Database {
    				       rs.getString("firstBidUserName"),
    					   rs.getInt("secondBid"),
    					   rs.getInt("secondBidUserId"),
-   					   rs.getString("secondBidUserName")));
+   					   rs.getString("secondBidUserName"),
+   					   rs.getBoolean("finished")));
 		}
 		rs.close();
 		
@@ -167,7 +171,8 @@ public class Database {
 		               "bidder1.name AS firstBidUserName, " +
                        "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
-		               "bidder2.name AS secondBidUserName " +
+		               "bidder2.name AS secondBidUserName, " +
+		               "i.finished AS finished " +
 	    		       "FROM item i " + 
 	    		       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id)" +
 		    	       "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
@@ -196,7 +201,8 @@ public class Database {
 		    				 rs.getString("firstBidUserName"),
 		    				 rs.getInt("secondBid"),
 		    				 rs.getInt("secondBidUserId"),
-		    				 rs.getString("secondBidUserName"));
+		    				 rs.getString("secondBidUserName"),
+		    				 rs.getBoolean("finished"));
 		rs.close();
 
 		return item;
@@ -221,14 +227,15 @@ public class Database {
 		               "bidder1.name AS firstBidUserName, " +
                        "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
-		               "bidder2.name AS secondBidUserName " +
+		               "bidder2.name AS secondBidUserName, " +
+		               "i.finished AS finished " +
  	        	       "FROM item i " + 
  	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id) " +
 	    	           "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
 		               "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
 		               "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
 		               "LEFT OUTER JOIN user bidder2 ON (i.secondBidUser = bidder2.id) " +
-			           "WHERE i.category = ?";
+			           "WHERE (i.category = ?) AND (i.finished = 0)";
 		PreparedStatement statement = connection.prepareStatement(query);
 	  	statement.setString(1, category);
     	statement.setQueryTimeout(timeout);
@@ -251,7 +258,8 @@ public class Database {
     	    				   rs.getString("firstBidUserName"),
     	    				   rs.getInt("secondBid"),
     	    				   rs.getInt("secondBidUserId"),
-    	    				   rs.getString("secondBidUserName")));
+    	    				   rs.getString("secondBidUserName"),
+    	    				   rs.getBoolean("finished")));
     	}
     	rs.close();
     	
@@ -277,14 +285,15 @@ public class Database {
 		               "bidder1.name AS firstBidUserName, " +
                        "i.secondBid AS secondBid, " +
 		               "bidder2.id AS secondBidUserId, " +
-		               "bidder2.name AS secondBidUserName " +
+		               "bidder2.name AS secondBidUserName, " +
+		               "i.finished AS finished " +
  	        	       "FROM item i " + 
  	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id) " +
 	    	           "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
 		               "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
 		               "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
 		               "LEFT OUTER JOIN user bidder2 ON (i.secondBidUser = bidder2.id) " +
-			           "WHERE i.owner = ?";
+			           "WHERE (i.owner = ?) AND (i.finished = 0)";
 		PreparedStatement statement = connection.prepareStatement(query);
 	  	statement.setInt(1, userId);
     	statement.setQueryTimeout(timeout);
@@ -307,7 +316,8 @@ public class Database {
     	    				   rs.getString("firstBidUserName"),
     	    				   rs.getInt("secondBid"),
     	    				   rs.getInt("secondBidUserId"),
-    	    				   rs.getString("secondBidUserName")));
+    	    				   rs.getString("secondBidUserName"),
+    	    				   rs.getBoolean("finished")));
     	}
     	rs.close();
     	
@@ -315,7 +325,6 @@ public class Database {
 	}
 	
 	public User getUserByName(String name) throws Exception {
-		String defaultPayPalAcct = "buyer_1349884489_per@parafox.net";
 		
 		//set up query
 		String query = "SELECT u.id AS id, " +
@@ -346,7 +355,7 @@ public class Database {
 							 rs.getString("address"),
 							 rs.getInt("rating"),
 							 rs.getInt("ratingCount"),
-							 defaultPayPalAcct,
+							 rs.getString("payPalAcct"),
 							 rs.getString("email"),
 							 rs.getString("about"));
 		rs.close();
@@ -355,8 +364,6 @@ public class Database {
 	}
 	
 	public User getUserById(int id) throws Exception {
-		
-		String defaultPayPalAcct = "buyer_1349884489_per@parafox.net";
 		
 		//set up query
 		String query = "SELECT u.id AS id, " +
@@ -387,7 +394,7 @@ public class Database {
 							 rs.getString("address"),
 							 rs.getInt("rating"),
 							 rs.getInt("ratingCount"),
-							 defaultPayPalAcct,
+							 rs.getString("payPalAcct"),
 							 rs.getString("email"),
 							 rs.getString("about"));
 		rs.close();
@@ -616,9 +623,9 @@ public class Database {
 		//Construct insert
 		String insert = "INSERT INTO item " +
 			"(description, startLocation, shipsTo, category, " +
-			"startDate, endDate, owner, minBid, firstBid, " +
-			"firstBidUser, secondBid, secondBidUser) " +
-			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+			"startDate, endDate, owner, minBid, finished, " +
+			"firstBid, firstBidUser, secondBid, secondBidUser) " +
+			"VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement statement = connection.prepareStatement(insert);
 		statement.setString(1, name);
 		statement.setInt(2, startLocation);
@@ -628,10 +635,11 @@ public class Database {
 		statement.setString(6, df.format(endDate));
 		statement.setInt(7, owner);
 		statement.setInt(8, minBid);
-		statement.setNull(9, java.sql.Types.INTEGER);
-		statement.setNull(10, java.sql.Types.VARCHAR);
-		statement.setNull(11, java.sql.Types.INTEGER);
-		statement.setNull(12, java.sql.Types.VARCHAR);
+		statement.setBoolean(9, false);
+		statement.setNull(10, java.sql.Types.INTEGER);
+		statement.setNull(11, java.sql.Types.VARCHAR);
+		statement.setNull(12, java.sql.Types.INTEGER);
+		statement.setNull(13, java.sql.Types.VARCHAR);
 		statement.setQueryTimeout(timeout);
 		
 		//execute insert

@@ -38,14 +38,14 @@
 					<h4>Error:</h4> You are not the winner of this auction.
 				</div>
 			</c:when>
-			<c:when test="${notFinished}">
-				<div class="alert alert-error">
-					<h4>Error:</h4> This auction hasn't finished.
-				</div>
-			</c:when>
 			<c:when test="${empty item}">
 				<div class="alert alert-error">
 					<h4>Error:</h4> No such item.
+				</div>
+			</c:when>
+			<c:when test="${!item.finished}">
+				<div class="alert alert-error">
+					<h4>Error:</h4> This auction hasn't finished.
 				</div>
 			</c:when>
 			<c:otherwise>
