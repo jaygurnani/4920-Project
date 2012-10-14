@@ -24,22 +24,10 @@
 					required: true,
 					minlength : 6,
 				},
-
-				emailaddress : {
-					required : true,
-					email : true,
-				},
-				
-				paypal : {
-					required : true,
-					minlength : 6,
-				},
-
-				password : {
-					required : true,
-					minlength : 6,
-					equalTo : "#confirmpassword",
-				},
+				minBid: {
+					required: true,
+					minlength : 1,
+				}
 			}
 		});
 	});
@@ -66,8 +54,8 @@
 			
 			<form id="register" action="makeAuction" method="post">
 			<div class="control-group">
-				<label class="control-label"><h4>Item Name</h4></label> <input type="text" class="span4" name="name" value="${param.name}"></input>
-				<label class="control-label"><h4>Description</h4></label> <textarea class="span4" name="description" rows="5">${param.description}</textarea>
+				<label class="control-label"><h4>Item Name</h4></label> <input type="text" maxlength="100 " class="span4" name="name" value="${param.name}"></input>
+				<!--<label class="control-label"><h4>Description</h4></label> <textarea class="span4" name="description" rows="5">${param.description}</textarea>-->
 				<label class="control-label"><h4>Category</h4></label> <select name="category"><c:forEach var="category" items="${categories}"><option>${category}</option></c:forEach></select>
 				<label class="control-label"><h4>Ships From</h4></label> <select name="shipsFrom"><c:forEach var="location" items="${locations}"><option>${location}</option></c:forEach></select>
 				<label class="control-label"><h4>Ships To</h4></label> <select name="shipsTo"><c:forEach var="location" items="${locations}"><option>${location}</option></c:forEach></select>

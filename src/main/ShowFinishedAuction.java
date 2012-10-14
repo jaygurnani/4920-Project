@@ -70,13 +70,20 @@ public class ShowFinishedAuction extends HttpServlet {
 			db = new Database();
 			Item item = db.getItemById(id);
 						
-			//fail if user isn't the winner
-			if (!item.getFirstBidUserName().equals(userName)) {
+			//fail if user isn't the winner or seller
+			if (item.getOwnerName().equals(userName)) {
+				request.setAttribute("isSeller", true);
+				
+				//get winner from database
+				User winner = db.getUserById(item.getFirstBidUserId());
+				request.setAttribute("winner", winner);
+			} else if (!item.getFirstBidUserName().equals(userName)) {
 				request.setAttribute("wrongUser", true);
 				RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
 				view.forward(request, response);
 				return;
 			}
+			
 			
 			//get seller from database
 			User seller = db.getUserById(item.getOwnerId());
@@ -84,6 +91,7 @@ public class ShowFinishedAuction extends HttpServlet {
 			//pass item and seller to display page
 			request.setAttribute("item", item);
 			request.setAttribute("seller", seller);
+			
 			RequestDispatcher view = request.getRequestDispatcher("displayFinished.jsp");
 			view.forward(request, response);
 		} catch (Exception e) {

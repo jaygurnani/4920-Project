@@ -45,10 +45,44 @@
 						<tr><td>About:</td><td>${user.about}</td></tr>
 					</tbody>
 				</table>
-				<c:if test="${isUser}"><a href="showUser?id=${user.id}&show=0">Show Items Won</a> or <a href="showUser?id=${user.id}&show=1">Show Listed Auctions</a></c:if>
+				<c:if test="${isUser}">
+					<a href="showUser?id=${user.id}&show=0">Show Items Won</a> or 
+					<a href="showUser?id=${user.id}&show=1">Show Listed Auctions</a> or
+					<a href="showUser?id=${user.id}&show=2">Show Finished Listed Auctions</a>
+					</c:if>
 				<c:choose>
 				<c:when test="${showWon}">
 				<h3>Items Won:</h3>
+				<table class="table table-bordered table-hover">
+					<thead>
+						<tr>
+							<th>Description</th>
+							<th>Category</th>
+							<th>Location</th>
+							<th>Seller</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:choose>
+					<c:when test="${!empty itemList}">
+						<c:forEach var="item" items="${itemList}">
+							<tr>
+								<td><a href="finished?id=${item.id}">${item.description}</a></td>
+								<td><a href="category?cat=${item.category}">${item.category}</a></td>
+								<td>${item.startLocation}</td>
+								<td><a href="showUser?id=${item.ownerId}">${item.ownerName}</a></td>
+							</tr>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<tr class="error"><td><p class="text-error">No items found.</p></td><td></td><td></td><td></td><td></td></tr>
+					</c:otherwise>
+					</c:choose>
+					</tbody>
+				</table>
+				</c:when>
+				<c:when test="${showFinished}">
+				<h3>Finished Listed Auctions:</h3>
 				<table class="table table-bordered table-hover">
 					<thead>
 						<tr>

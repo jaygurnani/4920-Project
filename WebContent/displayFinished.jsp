@@ -50,8 +50,18 @@
 			</c:when>
 			<c:otherwise>
 				<div class="alert alert-success">
+				<c:choose>
+				<c:when test="${isSeller}">
 					<h4>Congratulations!</h4>
-					You won this item for $${item.winBidString}!
+					This auction was won by <a href="showUser?id=${winner.id}">${winner.name}</a> for $${item.winBidString}!<br>
+					Email Winner: <a href="mailto:${winner.email}">${winner.email}</a><br>
+					Winner's Address: ${winner.address}<br>
+					<small>Warning: Don't post item before receiving payment!</small>
+				</c:when>
+				<c:otherwise>
+					<h4>Congratulations!</h4>
+					You won this item for $${item.winBidString}!<br>
+					Email Seller: <a href="mailto:${seller.email}">${seller.email}</a><br>
 					<form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="blank">
 						<%-- The seller's merchant account details --%>
 						<input type="hidden" name="business" value="${seller.payPalAcct}">
@@ -70,9 +80,11 @@
 						<input type="hidden" name="id" value="${item.id}"></input>
 						<select name="rating"><c:forEach var="i" begin="1" end="5"><option>${i}</option></c:forEach></select>
 						<button type="submit" class="btn">Rate!</button>
-						<small>Note:You can only rate a seller once per won auction!</small>
 						</form>
+						<small>Note:You can only rate a seller once per won auction!</small>
 					</c:if>
+				</c:otherwise>
+				</c:choose>
 				</div>
 				
 				<%--Item Details --%>
@@ -88,14 +100,14 @@
 								<tr><td>Category:</td><td>${item.category}</td></tr>
 								<tr><td>Location:</td><td>${item.startLocation}</td></tr>
 								<tr><td>Ships To:</td><td>${item.shipsTo}</td></tr>
-								<tr><td>Ends In:</td><td>${item.endsIn} (${item.endDateString})</td></tr>
+								<tr><td>Ended:</td><td>${item.endDateString}</td></tr>
 								<tr><td>Started:</td><td>${item.startDateString}</td></tr>
 								<tr><td>Seller:</td><td><a href="showUser?id=${item.ownerId}">${item.ownerName}</a></td></tr>
 							</tbody>
 						</table>
 					</td>
 				</tr>
-				<tr><td colspan="2">Description:<br>?<br><br><br></td></tr>
+				<!--<tr><td colspan="2">Description:<br>?<br><br><br></td></tr> -->
 				</table>
 			</c:otherwise>
 			</c:choose>

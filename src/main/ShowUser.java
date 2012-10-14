@@ -69,6 +69,9 @@ public class ShowUser extends HttpServlet {
 				if (show != null && show.equals("1")) {
 					request.setAttribute("showSelling", true);
 					items = db.getItemsBySeller(user.getId());
+				} else if (show != null && show.equals("2")) {
+					request.setAttribute("showFinished", true);
+					items = db.getFinishedItemsBySeller(user.getId());
 				} else {
 					request.setAttribute("showWon", true);
 					items = db.getItemsByWinner(user.getId());

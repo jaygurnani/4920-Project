@@ -102,7 +102,7 @@
 						</table>
 					</td>
 				</tr>
-				<tr><td colspan="2">Description:<br>?<br><br><br></td></tr>
+				<!--<tr><td colspan="2">Description:<br>?<br><br><br></td></tr>-->
 				</table>
 			</c:otherwise>
 			</c:choose>

@@ -334,6 +334,66 @@ public class Database {
     	return items;
 	}
 	
+	public List<Item> getFinishedItemsBySeller(int userId) throws Exception {
+		List<Item> items = new ArrayList<Item>();
+		
+		//Query database
+		String query = "SELECT i.id AS id, " +
+     	               "i.description AS description, " +
+                       "sellLoc.name AS startLocation, " +
+                       "shipLoc.name AS shipsTo, " +
+                       "i.category AS category, " +
+                       "i.startDate AS startDate, " +
+                       "i.endDate AS endDate, " +
+                       "seller.id AS ownerId, " +
+                       "seller.name AS ownerName, " +
+		               "i.minBid AS minBid, " +
+                       "i.firstBid AS firstBid, " +
+		               "bidder1.id as firstBidUserId, " +
+		               "bidder1.name AS firstBidUserName, " +
+                       "i.secondBid AS secondBid, " +
+		               "bidder2.id AS secondBidUserId, " +
+		               "bidder2.name AS secondBidUserName, " +
+		               "i.finished AS finished, " +
+		               "i.feedbackLeft AS feedbackLeft "+
+ 	        	       "FROM item i " + 
+ 	         	       "LEFT OUTER JOIN locations sellLoc ON (i.startlocation = sellLoc.id) " +
+	    	           "LEFT OUTER JOIN locations shipLoc ON (i.shipsto = shipLoc.id) " +
+		               "LEFT OUTER JOIN user seller ON (i.owner = seller.id) " +
+		               "LEFT OUTER JOIN user bidder1 ON (i.firstBidUser = bidder1.id) " +
+		               "LEFT OUTER JOIN user bidder2 ON (i.secondBidUser = bidder2.id) " +
+			           "WHERE (i.owner = ?) AND (i.finished = 1)";
+		PreparedStatement statement = connection.prepareStatement(query);
+	  	statement.setInt(1, userId);
+    	statement.setQueryTimeout(timeout);
+    	ResultSet rs = statement.executeQuery();
+    	    	
+    	//add all results to items
+    	while (rs.next()) {
+    		items.add(new Item(rs.getInt("id"),
+    						   rs.getString("Description"), 
+    						   rs.getString("startlocation"),
+    						   rs.getString("shipsto"),
+    						   rs.getString("category"),
+    						   df.parse(rs.getString("startDate")),
+    						   df.parse(rs.getString("endDate")),
+    						   rs.getInt("ownerId"),
+    						   rs.getString("ownerName"),
+    						   rs.getInt("minBid"),
+    	    			       rs.getInt("firstBid"),
+    	    				   rs.getInt("firstBidUserId"),
+    	    				   rs.getString("firstBidUserName"),
+    	    				   rs.getInt("secondBid"),
+    	    				   rs.getInt("secondBidUserId"),
+    	    				   rs.getString("secondBidUserName"),
+    	    				   rs.getBoolean("finished"),
+    	    				   rs.getBoolean("feedbackLeft")));
+    	}
+    	rs.close();
+    	
+    	return items;
+	}
+	
 	public List<Item> getItemsByWinner(int userId) throws Exception {
 		List<Item> items = new ArrayList<Item>();
 		
